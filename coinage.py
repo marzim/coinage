@@ -14,5 +14,5 @@ def home():
 #register our blueprints
 app.register_blueprint(contributions_blueprint)
 
-if __name__ == "__main__":
-    app.run()
+#if __name__ == "__main__":
+#    app.run()
