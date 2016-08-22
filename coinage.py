@@ -1,6 +1,7 @@
 
-from flask import Flask, render_template,abort
-from jinja2 import TemplateNotFound
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 
