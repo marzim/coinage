@@ -1,7 +1,9 @@
+
 from flask import Flask, render_template,abort
 from jinja2 import TemplateNotFound
 
 app = Flask(__name__)
+
 from contributions.views import contributions_blueprint
 
 @app.route("/")
