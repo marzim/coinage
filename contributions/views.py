@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 
-
 contributions_blueprint = Blueprint('contributions', __name__, static_url_path='/contributions/static', static_folder='./static',
                       template_folder='./templates')
 
