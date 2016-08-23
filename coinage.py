@@ -10,7 +10,7 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.secret_key = os.environ['SECRET_KEY']
 db = SQLAlchemy(app)
 
 from home.views import home_blueprint
