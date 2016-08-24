@@ -20,5 +20,13 @@ from contributions.views import contributions_blueprint
 app.register_blueprint(contributions_blueprint)
 app.register_blueprint(home_blueprint)
 
+from users.models import User
+
+login_manager.login_view = "users.login"
+
+@login_manager.user_loader()
+def load_user(user_id):
+    return User.query.filter(User.id == int(user_id)).first()
+
 if __name__ == "__main__":
     app.run()
