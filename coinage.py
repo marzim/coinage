@@ -28,5 +28,5 @@ login_manager.login_view = "users.login"
 def load_user(user_id):
     return User.query.filter(User.id == int(user_id)).first()
 
-if __name__ == "__main__":
-    app.run()
+#if __name__ == "__main__":
+#    app.run()
