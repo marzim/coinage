@@ -25,7 +25,7 @@ from users.models import User
 login_manager.login_view = "users.login"
 
 @login_manager.user_loader()
-def load_user(self, user_id):
+def load_user(user_id):
     return User.query.filter(User.id == int(user_id)).first()
 
 if __name__ == "__main__":
