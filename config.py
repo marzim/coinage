@@ -1,4 +1,4 @@
-__author__ = 'Marvin'
+__author__ = 'marzim'
 import os
 # default configuration
 
