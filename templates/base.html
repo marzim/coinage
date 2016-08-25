@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Savings</title>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
   </head>
   <body>
 
-    <div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
       <!-- child template -->
       {% block content %}{% endblock %}
@@ -22,6 +28,12 @@
         {{ message }}
       {% endfor %}
     </div>
-
+    <div class="footer">
+        <p class="p_footer">
+            started by Marvin Casagnap ( <a href="mailto:marvin.casagnap@gmail.com">marvin.casagnap@gmail.com</a> )</br>
+            powered by <a href="http://www.python.org/download/releases/2.7/">Python 2.7</a> and <a href="http://flask.pocoo.org/">flask</a></br>
+            CSS designed and built using the wonderful <a href="http://getbootstrap.com/">Bootstrap</a>
+        </p>
+    </div>
   </body>
 </html>

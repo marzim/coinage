@@ -10,8 +10,6 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-#app.config.from_object(os.environ['APP_SETTINGS'])
-#app.secret_key = os.environ['MYSECRETKEY']
 app.config.from_object('config.ProductionConfig')
 db = SQLAlchemy(app)
 
