@@ -2,13 +2,46 @@
 {% block title %}Home{% endblock %}
 {% block head %}
   {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
+
 {% endblock %}
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
-    Welcome on my awesome homepage.
-  </p>
+  <h1>Home</h1>
+<!--$if session.privilege == 1:-->
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Savings
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="/savings">Summary</a>
+                </li>
+                <li>
+                    <a href="/savings/contributions">Contributions</a>
+                </li>
+                <!--<li>
+                    <a href="/savings/contchecklist">Contribution Checklist</a>
+                </li>-->
+                <li>
+                    <a href="/savings/loans">Loans</a>
+                </li>
+                <li>
+                    <a href="/savings/guidelines">Guidelines</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="/savings/customers/interestearned">Interest Earned</a>
+                </li>
+                <li>
+                    <a href="/savings/customers">Customers</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="/users">Users</a></li>
+    <!--$if session.login > 0:
+        <li><a href="/logout">Log out [$session.user]</a></li>
+    $else:-->
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/register">Sign up</a></li>
+    <li><a href="#">Gallery</a></li>
 {% endblock %}
