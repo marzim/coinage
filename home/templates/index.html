@@ -5,7 +5,7 @@
 
 {% endblock %}
 {% block content %}
-  
+
 <!--$if session.privilege == 1:-->
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -44,4 +44,31 @@
         <li><a href="/login">Log in</a></li>
         <li><a href="/register">Sign up</a></li>
     <li><a href="#">Gallery</a></li>
+{% endblock %}
+{% block container-fluid %}
+<div class="container-fluid">
+        <div class="row">
+            <!--$if session.login > 0:-->
+                 <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li>
+                        <a href="/">Home</a></li>
+                        <li><a href="/savings">Summary</a></li>
+                        <li><a href="/savings/contributions">Contributions</a></li>
+                        <!--<li><a href="/savings/contchecklist">Contribution Checklist</a></li>-->
+                        <li><a href="/savings/loans">Loans</a></li>
+                        <li><a href="/savings/customers/interestearned">Interest Earned</a></li>
+                        <li><a href="/savings/customers">Customers</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/savings/notes">Notes</a></li>
+                        <li><a href="/savings/guidelines">Guidelines</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <!--$:page-->
+                </div>
+            <!--$else:
+                $:page-->
+        </div>
+    </div>
 {% endblock %}
