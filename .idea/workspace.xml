@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f07dc222-e9ec-4ab0-8f9a-31d03b67bd88" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home/templates/index.html" afterPath="$PROJECT_DIR$/home/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
     </list>
     <ignored path="source.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,8 +104,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/home/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            <state relative-caret-position="140">
+              <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -967,8 +966,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        <state relative-caret-position="140">
+          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
           <folding />
         </state>
       </provider>
