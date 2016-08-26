@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Summary</title>
-</head>
-<body>
-    <h2>Summary</h2>
-</body>
-</html>
+{% extends "index.html" %}
+{% block title %}Summary{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{{ super() }}
+{% endblock %}
+{% block container %}
+{{ super() }}
+{% endblock %}
