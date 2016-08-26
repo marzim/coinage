@@ -14,14 +14,14 @@ def contributions():
 @contributions_blueprint.route("/contributions/new")
 def newcontributions():
     try:
-        return render_template("newcontributions.html")
+        return render_template("newcontribution.html")
     except TemplateNotFound:
         abort(404)
 
 @contributions_blueprint.route("/contributions/edit")
 def editcontributions():
     try:
-        return render_template("editcontributions.html")
+        return render_template("editcontribution.html")
     except TemplateNotFound:
         abort(404)
 

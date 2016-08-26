@@ -3,8 +3,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-import os
-import config
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -17,11 +15,22 @@ from home.views import home_blueprint
 from contributions.views import contributions_blueprint
 from summary.views import summary_blueprint
 from loans.views import loans_blueprint
+from interestearned.views import interestearned_blueprint
+from customers.views import customers_blueprint
+from notes.views import notes_blueprint
+from users.views import users_blueprint
+from guidelines.views import guidelines_blueprint
+
 #register our blueprints
 app.register_blueprint(contributions_blueprint)
 app.register_blueprint(home_blueprint)
 app.register_blueprint(summary_blueprint)
 app.register_blueprint(loans_blueprint)
+app.register_blueprint(interestearned_blueprint)
+app.register_blueprint(customers_blueprint)
+app.register_blueprint(notes_blueprint)
+app.register_blueprint(users_blueprint)
+app.register_blueprint(guidelines_blueprint)
 
 from users.models import User
 
