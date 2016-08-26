@@ -16,11 +16,12 @@ db = SQLAlchemy(app)
 from home.views import home_blueprint
 from contributions.views import contributions_blueprint
 from summary.views import summary_blueprint
-
+from loans.views import loans_blueprint
 #register our blueprints
 app.register_blueprint(contributions_blueprint)
 app.register_blueprint(home_blueprint)
 app.register_blueprint(summary_blueprint)
+app.register_blueprint(loans_blueprint)
 
 from users.models import User
 
