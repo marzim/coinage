@@ -5,7 +5,7 @@ summary_blueprint = Blueprint('summary', __name__, static_url_path='/summary/sta
                       template_folder='./templates')
 
 @summary_blueprint.route("/summary")
-def contributions():
+def summary():
     try:
         return render_template('summary.html')
     except TemplateNotFound:
