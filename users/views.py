@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
+from flask_login import login_required, logout_user
 
 users_blueprint = Blueprint('users', __name__, static_url_path='/users/static', static_folder='./static',
                       template_folder='./templates')
@@ -11,18 +12,54 @@ def users():
     except TemplateNotFound:
         abort(404)
 
-@users_blueprint.route("/users/new")
-def newuser():
-    try:
-        return render_template("newuser.html")
-    except TemplateNotFound:
-        abort(404)
-
 @users_blueprint.route("/users/edit")
 def edituser():
     try:
         return render_template("edituser.html")
     except TemplateNotFound:
         abort(404)
+
+@users_blueprint.route('/login', methods=['GET', 'POST'])   # pragma: no cover
+def login():
+    error = None
+    form = LoginForm(request.form)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user = User.query.filter_by(name=request.form['username']).first()
+            if user is not None and bcrypt.check_password_hash(
+                user.password, request.form['password']
+            ):
+                login_user(user)
+                flash('You were logged in. Go Crazy.')
+                return redirect(url_for('home.home'))
+
+            else:
+                error = 'Invalid username or password.'
+    return render_template('login.html', form=form, error=error)
+
+
+@users_blueprint.route('/logout')   # pragma: no cover
+@login_required   # pragma: no cover
+def logout():
+    logout_user()
+    flash('You were logged out.')
+    return redirect(url_for('home.welcome'))
+
+
+@users_blueprint.route(
+    '/register/', methods=['GET', 'POST'])   # pragma: no cover
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            name=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('home.home'))
+    return render_template('register.html', form=form)
 
 
