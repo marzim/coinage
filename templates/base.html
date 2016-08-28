@@ -35,7 +35,11 @@
                 </ul>
             </div>
          </div>
-      <!-- errors -->
+
+    </div>
+    {% block container %}{% endblock %}
+    <div class="footer">
+        <!-- errors -->
       {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}</p>
       {% endif %}
@@ -44,9 +48,6 @@
       {% for message in get_flashed_messages() %}
         {{ message }}
       {% endfor %}
-    </div>
-    {% block container %}{% endblock %}
-    <div class="footer">
         <p class="p_footer">
             started by Marvin Casagnap ( <a href="mailto:marvin.casagnap@gmail.com">marvin.casagnap@gmail.com</a> )</br>
             powered by <a href="http://www.python.org/download/releases/2.7/">Python 2.7</a> and <a href="http://flask.pocoo.org/">flask</a></br>
