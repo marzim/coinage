@@ -1,6 +1,10 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, flash, request, url_for, redirect
 from jinja2 import TemplateNotFound
-from flask_login import login_required, logout_user
+from flask_login import login_user, login_required, logout_user
+
+from .forms import LoginForm, RegisterForm
+from coinage import db
+from coinage import User, bcrypt
 
 users_blueprint = Blueprint('users', __name__, static_url_path='/users/static', static_folder='./static',
                       template_folder='./templates')

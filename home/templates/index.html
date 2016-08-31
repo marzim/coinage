@@ -36,7 +36,7 @@
             </ul>
         </li>
         <li><a href="/users">Users</a></li>
-        <li><a href="/logout">Log out [$session.user]</a></li>
+        <li><a href="/logout">Log out {{ current_user.name }}</a></li>
     {% else %}
         <li><a href="/login">Log in</a></li>
         <li><a href="/register">Sign up</a></li>
@@ -52,7 +52,6 @@
                     <ul class="nav nav-sidebar">
                         <li>
                         <a href="/">Home</a></li>
-
                         <li><a href="/summary">Summary</a></li>
                         <li><a href="/contributions">Contributions</a></li>
                         <!--<li><a href="/savings/contchecklist">Contribution Checklist</a></li>-->

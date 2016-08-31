@@ -11,6 +11,7 @@ login_manager.init_app(app)
 app.config.from_object('config.ProductionConfig')
 db = SQLAlchemy(app)
 
+from models import User
 from home.views import home_blueprint
 from contributions.views import contributions_blueprint
 from summary.views import summary_blueprint
@@ -31,8 +32,6 @@ app.register_blueprint(customers_blueprint)
 app.register_blueprint(notes_blueprint)
 app.register_blueprint(users_blueprint)
 app.register_blueprint(guidelines_blueprint)
-
-from users.models import User
 
 login_manager.login_view = "users.login"
 
