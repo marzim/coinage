@@ -5,8 +5,9 @@ home_blueprint = Blueprint('home', __name__, static_url_path='/home/static', sta
                       template_folder='./templates')
 
 @home_blueprint.route("/")
-def contributions():
+def home():
     try:
+        error = None
         return render_template('index.html')
     except TemplateNotFound:
         abort(404)

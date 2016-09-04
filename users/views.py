@@ -36,7 +36,6 @@ def login():
                 login_user(user)
                 flash('You were logged in. Go Crazy.')
                 return redirect(url_for('home.home'))
-
             else:
                 error = 'Invalid username or password.'
     return render_template('login.html', form=form, error=error)
