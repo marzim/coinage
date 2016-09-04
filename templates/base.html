@@ -29,7 +29,6 @@
             <div class="navbar-collapse collapse" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right navbar-inverse">
                     <li><a href="/">Home</a></li>
-      <!-- child template -->
                     {% block content %}{% endblock %}
                 </ul>
             </div>
@@ -39,7 +38,7 @@
     <div class="footer">
         <!-- errors -->
       {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
+        <p id="id_login_error"><strong>Error:</strong> {{ error }}</p>
       {% endif %}
 
       <!-- messages -->
