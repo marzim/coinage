@@ -11,7 +11,6 @@ login_manager.init_app(app)
 app.config.from_object('config.ProductionConfig')
 db = SQLAlchemy(app)
 
-from models import User
 from home.views import home_blueprint
 from contributions.views import contributions_blueprint
 from summary.views import summary_blueprint
@@ -19,8 +18,8 @@ from loans.views import loans_blueprint
 from interestearned.views import interestearned_blueprint
 from customers.views import customers_blueprint
 from notes.views import notes_blueprint
-from users.views import users_blueprint
 from guidelines.views import guidelines_blueprint
+from users.views import users_blueprint
 
 #register our blueprints
 app.register_blueprint(contributions_blueprint)
@@ -37,6 +36,7 @@ login_manager.login_view = "users.login"
 
 @login_manager.user_loader
 def load_user(user_id):
+    from models import User
     return User.query.filter(User.id == int(user_id)).first()
 
 

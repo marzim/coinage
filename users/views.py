@@ -3,8 +3,6 @@ from jinja2 import TemplateNotFound
 from flask_login import login_user, login_required, logout_user
 
 from .forms import LoginForm, RegisterForm
-from coinage import db
-from coinage import User, bcrypt
 
 users_blueprint = Blueprint('users', __name__, static_url_path='/users/static', static_folder='./static',
                       template_folder='./templates')
@@ -25,6 +23,8 @@ def edituser():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])   # pragma: no cover
 def login():
+    from coinage import bcrypt
+    from models import User
     error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
@@ -53,6 +53,8 @@ def logout():
 @users_blueprint.route(
     '/register/', methods=['GET', 'POST'])   # pragma: no cover
 def register():
+    from coinage import db
+    from models import User
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(
@@ -65,5 +67,3 @@ def register():
         login_user(user)
         return redirect(url_for('home.home'))
     return render_template('register.html', form=form)
-
-
