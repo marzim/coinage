@@ -34,7 +34,6 @@ def login():
                 user.password, request.form['password']
             ):
                 login_user(user)
-                flash('You were logged in. Go Crazy.')
                 return redirect(url_for('home.home'))
             else:
                 error = 'Invalid username or password.'
@@ -45,8 +44,7 @@ def login():
 @login_required   # pragma: no cover
 def logout():
     logout_user()
-    flash('You were logged out.')
-    return redirect(url_for('home.welcome'))
+    return redirect(url_for('users.login'))
 
 
 @users_blueprint.route(
