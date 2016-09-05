@@ -36,7 +36,7 @@
             </ul>
         </li>
         <li><a href="/users">Users</a></li>
-        <li><a href="/logout">Log out {{ current_user.name }}</a></li>
+        <li><a href="/logout">Log out [{{ current_user.name }}]</a></li>
     {% else %}
         <li><a href="/login">Log in</a></li>
         <li><a href="/register">Sign up</a></li>
