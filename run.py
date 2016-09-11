@@ -1,5 +1,4 @@
-from coinage import app, db
-from users.models import User
+from coinage import app
 
 if __name__ == '__main__':
     app.run(debug=True)
