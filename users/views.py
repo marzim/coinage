@@ -55,7 +55,7 @@ def register():
     form = RegisterForm()
     error = None
     if form.validate_on_submit():
-        user = User.query.filter_by(name=request.form['username']).first()
+        user = User.query.filter_by(name=form.username.data.strip()).first()
         if user is None:
             user = User(
                 name=form.username.data,
