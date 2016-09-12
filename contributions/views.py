@@ -14,6 +14,7 @@ def contributions():
         abort(404)
 
 @contributions_blueprint.route("/contributions/new", methods=['GET', 'POST'])
+@login_required
 def newcontributions():
     try:
         return render_template("newcontribution.html")
@@ -21,6 +22,7 @@ def newcontributions():
         abort(404)
 
 @contributions_blueprint.route("/contributions/edit", methods=['GET', 'POST'])
+@login_required
 def editcontributions():
     try:
         return render_template("editcontribution.html")

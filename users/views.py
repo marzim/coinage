@@ -8,6 +8,7 @@ users_blueprint = Blueprint('users', __name__, static_url_path='/users/static', 
                       template_folder='./templates')
 
 @users_blueprint.route("/users")
+@login_required
 def users():
     try:
         return render_template('users.html')
@@ -15,6 +16,7 @@ def users():
         abort(404)
 
 @users_blueprint.route("/users/edit")
+@login_required
 def edituser():
     try:
         return render_template("edituser.html")
@@ -34,7 +36,11 @@ def login():
                 user.password, request.form['password']
             ):
                 login_user(user)
-                return redirect(url_for('home.home'))
+                next = request.args.get('next')
+                if next is not None:
+                    return redirect(next)
+                else:
+                    return redirect(url_for('home.home'))
             else:
                 error = 'Invalid username or password.'
     return render_template('login.html', form=form, error=error)
