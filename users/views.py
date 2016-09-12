@@ -53,14 +53,19 @@ def register():
     from coinage import db
     from models import User
     form = RegisterForm()
+    error = None
     if form.validate_on_submit():
-        user = User(
-            name=form.username.data,
-            email=form.email.data,
-            password=form.password.data
-        )
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        return redirect(url_for('home.home'))
-    return render_template('register.html', form=form)
+        user = User.query.filter_by(name=request.form['username']).first()
+        if user is None:
+            user = User(
+                name=form.username.data,
+                email=form.email.data,
+                password=form.password.data
+            )
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('home.home'))
+        else:
+            error = 'User name ' + form.username.data + ' is already taken.'
+    return render_template('register.html', form=form, error=error)
