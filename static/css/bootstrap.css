@@ -5790,9 +5790,9 @@ div.footer {
 
     p.p_footer {
 		  position: fixed;
-		  right: 0;
-		  left: 0;
-		  z-index: 1030;
+    		height: 100px;
+			bottom: 0;
+			width: 100%;
           margin: 0 0 9px;
           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 11px;
