@@ -1,6 +1,7 @@
 import os
 
 os.environ['DATABASE_URL'] = "mysql+mysqldb://coinage:beer_180JKL:@coinage.mysql.pythonanywhere-services.com/coinage$savings"
+#os.environ['DATABASE_URL'] = "mysql+mysqldb://root:jasper@localhost:3306/coinage"
 
 from coinage import db
 from users.models import User
