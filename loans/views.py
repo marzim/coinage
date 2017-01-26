@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from flask_login import login_required
 
-loans_blueprint = Blueprint('loans', __name__, static_url_path='/loans/static', static_folder='./static',
+loans_blueprint = Blueprint('loans', __name__, static_folder='static', static_url_path='/static/loans',
                       template_folder='./templates')
 
 @loans_blueprint.route("/loans")

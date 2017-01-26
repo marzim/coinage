@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from flask_login import login_required
 
-notes_blueprint = Blueprint('notes', __name__, static_url_path='/notes/static', static_folder='./static',
+notes_blueprint = Blueprint('notes', __name__, static_folder='static', static_url_path='/static/notes',
                       template_folder='./templates')
 
 @notes_blueprint.route("/notes")

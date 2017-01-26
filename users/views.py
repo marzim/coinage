@@ -4,7 +4,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 from .forms import LoginForm, RegisterForm
 
-users_blueprint = Blueprint('users', __name__, static_url_path='/users/static', static_folder='./static',
+users_blueprint = Blueprint('users', __name__, static_folder='static', static_url_path='/static/users',
                       template_folder='./templates')
 
 @users_blueprint.route("/users", methods=['GET'])   # pragma: no cover
@@ -42,7 +42,9 @@ def edituser(id):
 def deleteuser(id):
     if not current_user.name == 'admin':
         return redirect(url_for('users.users'))
-    abort(404)
+
+    return redirect(url_for('users.users'))
+
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])   # pragma: no cover
 def login():
