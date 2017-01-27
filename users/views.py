@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, abort, flash, request, url_for, re
 from jinja2 import TemplateNotFound
 from flask_login import login_user, login_required, logout_user, current_user
 
-from .forms import LoginForm, RegisterForm
+from .forms import AddForm, EditForm
 
 users_blueprint = Blueprint('users', __name__, static_folder='static', static_url_path='/static/users',
                       template_folder='./templates')
@@ -25,7 +25,7 @@ def edituser(id):
     if not current_user.name == 'admin':
         return redirect(url_for('users.users'))
     user = User.query.filter_by(id=id).first()
-    form = RegisterForm()
+    form = EditForm()
     form.username.data = user.name
     form.email.data = user.email
     error = None
@@ -35,7 +35,7 @@ def edituser(id):
         else:
             db.session.commit()
             return redirect(url_for('users.users'))
-    return render_template('register.html', form=form, error=error, instruction='Edit user', title='Edit User')
+    return render_template('edit.html', form=form, error=error, instruction='Edit user', title='Edit User')
 
 @users_blueprint.route("/users/delete/<id>", methods=['POST'])   # pragma: no cover)
 @login_required
@@ -45,43 +45,12 @@ def deleteuser(id):
 
     return redirect(url_for('users.users'))
 
-
-@users_blueprint.route('/login', methods=['GET', 'POST'])   # pragma: no cover
-def login():
-    from coinage import bcrypt
-    from models import User
-    error = None
-    form = LoginForm(request.form)
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            user = User.query.filter_by(name=request.form['username']).first()
-            if user is not None and bcrypt.check_password_hash(
-                user.password, request.form['password']
-            ):
-                login_user(user)
-                next = request.args.get('next')
-                if next is not None:
-                    return redirect(next)
-                else:
-                    return redirect(url_for('home.home'))
-            else:
-                error = 'Invalid username or password.'
-    return render_template('login.html', form=form, error=error)
-
-
-@users_blueprint.route('/logout')   # pragma: no cover
-@login_required   # pragma: no cover
-def logout():
-    logout_user()
-    return redirect(url_for('users.login'))
-
-
 @users_blueprint.route(
-    '/register/', methods=['GET', 'POST'])   # pragma: no cover
-def register():
+    '/add/', methods=['GET', 'POST'])   # pragma: no cover
+def add():
     from coinage import db
     from models import User
-    form = RegisterForm()
+    form = AddForm()
     error = None
     if form.validate_on_submit():
         user = User.query.filter_by(name=form.username.data.strip()).first()

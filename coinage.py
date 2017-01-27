@@ -21,6 +21,7 @@ from interestearned.views import interestearned_blueprint
 from customers.views import customers_blueprint
 from notes.views import notes_blueprint
 from guidelines.views import guidelines_blueprint
+from accounts.views import accounts_blueprint
 from users.views import users_blueprint
 
 #register our blueprints
@@ -31,14 +32,15 @@ app.register_blueprint(loans_blueprint)
 app.register_blueprint(interestearned_blueprint)
 app.register_blueprint(customers_blueprint)
 app.register_blueprint(notes_blueprint)
+app.register_blueprint(accounts_blueprint)
 app.register_blueprint(users_blueprint)
 app.register_blueprint(guidelines_blueprint)
 
-login_manager.login_view = "users.login"
+login_manager.login_view = "accounts.login"
 
 @login_manager.user_loader
-def load_user(user_id):
-    from users.models import User
-    return User.query.filter(User.id == int(user_id)).first()
+def load_user(account_id):
+    from accounts.models import Account
+    return Account.query.filter(Account.id == int(account_id)).first()
 
 
