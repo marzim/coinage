@@ -10,12 +10,12 @@ accounts_blueprint = Blueprint('accounts', __name__, static_folder='static', sta
 @accounts_blueprint.route('/login', methods=['GET', 'POST'])   # pragma: no cover
 def login():
     from coinage import bcrypt
-    from models import Account
+    from users.models import User
     error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = Account.query.filter_by(name=request.form['username']).first()
+            user = User.query.filter_by(name=request.form['username']).first()
             if user is not None and bcrypt.check_password_hash(
                 user.password, request.form['password']
             ):
@@ -41,20 +41,28 @@ def logout():
     '/register/', methods=['GET', 'POST'])   # pragma: no cover
 def register():
     from coinage import db
+    from users.models import User
     from models import Account
     form = RegisterForm()
     error = None
     if form.validate_on_submit():
-        account = Account.query.filter_by(name=form.username.data.strip()).first()
-        if account is None:
-            account = Account(
+        user = User.query.filter_by(name=form.username.data.strip()).first()
+        if user is None:
+            user = User(
                 name=form.username.data,
                 email=form.email.data,
                 password=form.password.data
             )
+            account = Account()
+            rights = 1 if user.name == 'admin' else 0;
+            account.create = rights
+            account.update = rights
+            account.delete = rights
+            account.User.append(user)
             db.session.add(account)
             db.session.commit()
-            login_user(account)
+            login_user(user)
+
             return redirect(url_for('home.home'))
         else:
             error = 'User name ' + form.username.data + ' is already taken.'

@@ -1,18 +1,25 @@
 from coinage import db
-from coinage import bcrypt
+from users.models import User
+
+association_table = db.Table('association', db.Model.metadata,
+    db.Column('account_id', db.Integer, db.ForeignKey('accounts.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+)
 
 class Account(db.Model):
     __tablename__ = "accounts"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(150), unique=False)
-    password = db.Column(db.String(150))
+    User = db.relationship('User', secondary=association_table)
+    create = db.Column(db.Integer)
+    update = db.Column(db.Integer)
+    delete = db.Column(db.Integer)
 
-    def __init__(self, name=None, email=None, password=None):
-        self.name = name
-        self.email = email
-        self.password = bcrypt.generate_password_hash(password)
+    def __init__(self, userid=None, create=None, update=None, delete=None):
+        self.userid = userid
+        self.create = create
+        self.update = update
+        self.delete = delete
 
     def is_authenticated(self):
         return True

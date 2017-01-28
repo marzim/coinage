@@ -39,8 +39,8 @@ app.register_blueprint(guidelines_blueprint)
 login_manager.login_view = "accounts.login"
 
 @login_manager.user_loader
-def load_user(account_id):
-    from accounts.models import Account
-    return Account.query.filter(Account.id == int(account_id)).first()
+def load_user(user_id):
+    from users.models import User
+    return User.query.filter(User.id == int(user_id)).first()
 
 
