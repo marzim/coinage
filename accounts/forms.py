@@ -3,7 +3,6 @@ from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
-# TODO add form for add/edit/view
 
 class LoginForm(Form):
     username = StringField('Username', validators=[DataRequired()])

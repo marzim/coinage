@@ -21,7 +21,6 @@
       </tr>
     </thead>
     <tbody>
-
       {% for user in query_users: %}
           <tr>
             {% if current_user.name == 'admin': %}
@@ -29,7 +28,7 @@
               <a href="/users/edit/{{ user.id }}">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
-              <a href="javascript:void(0)" class='confirmDeleteUser' data-userid="{{ user.id }}">
+              <a href="#" class='confirmDeleteUser' data-userid="{{ user.id }}">
                   <span class="glyphicon glyphicon-trash"></span>
               </a>
               </td>

@@ -13,6 +13,7 @@ def users():
     from models import User
     try:
         query_users = User.query.order_by(User.name)
+
         return render_template('users.html', query_users=query_users)
     except TemplateNotFound:
         abort(404)
