@@ -1,0 +1,90 @@
+{% extends "index.html" %}
+{% block title %}Add User{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ super() }}
+{% endblock %}
+{% block container %}
+{{ super() }}
+{% endblock %}
+{% block membercontent %}
+<div class="col-sm-offset-3 main">
+<ul class="nav nav-tabs actions-nav">
+  <li>
+    <a href="/users" title="List of Users">List</a>
+  </li>
+  {% if  current_user.can_create: %}
+  <li class="active">
+    <a href="#" title="Create New User">Create</a>
+  </li>
+  {% endif %}
+</ul>
+    <form class="form-signin col-md-6" role="form" method="post" action="">
+      {{ form.csrf_token }}
+      <p>
+        {{ form.username(type="text", class="form-control", autofocus="true", placeholder="username") }}
+        <span class="error">
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+      <p>
+      {{ form.email(type="text", class="form-control", placeholder="email") }}
+        <span class="error">
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+      <p>
+      {{ form.password(type="password", class="form-control", placeholder="password") }}
+        <span class="error">
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+      <p>
+      {{ form.confirm(type="password", class="form-control", placeholder="confirm") }}
+        <span class="error">
+          {% if form.confirm.errors %}
+            {% for error in form.confirm.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+     <p>
+        {{ form.can_create.label }}&nbsp;&nbsp;{{ form.can_create }}
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         {{ form.can_update.label }}&nbsp;&nbsp;{{ form.can_update }}
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         {{ form.can_delete.label }}&nbsp;&nbsp;{{ form.can_delete }}
+         &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <!-- <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ can_create }}">
+         <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ can_update }}">
+         <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ can_delete }}">
+          <label>
+          <input type="checkbox" id="can_create" class="action-checkbox" title="Can create user."> Create
+          </label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <label>
+          <input type="checkbox" id="can_update" class="action-checkbox" title="Can update user."> Update
+          </label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <label>
+          <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete user."> Delete
+          </label>&nbsp;&nbsp;&nbsp;&nbsp;-->
+      </p>
+      <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+    </form>
+{% endblock %}
+</div>

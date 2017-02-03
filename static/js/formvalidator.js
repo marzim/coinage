@@ -152,11 +152,23 @@ $(document).ready(function(){
         location.reload();
     });
 
-    $('.confirmDeleteUser').click(function(){
-      if(confirm('Are you sure you want to remove this record?') == true){
-          alert('id: ' + $(this).data('id'));
-      }
+    $('.confirmDeleteUser').click(function(e){
+       e.preventDefault();
+        var userid = $(this).data('userid');
+        var username = $(this).data('username');
+        $(".modal-body #userid").val(userid);
+        $(".modal-body #username").val(username);
     });
 
+    $('#okdelete').click(function(e){
+        e.preventDefault();
+        var userid = $(".modal-body #userid").val();
+        $.ajax({
+            url: '/users/delete',
+            type: 'POST',
+            data: $('#deleteForm').serialize(),
+        });
+        location.reload();
+    });
 });
 

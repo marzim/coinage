@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class AddForm(Form):
@@ -22,6 +22,10 @@ class AddForm(Form):
         ]
     )
 
+    can_create = BooleanField('Create', default=False)
+    can_update = BooleanField('Update', default=False)
+    can_delete = BooleanField('Delete', default=False)
+
 class EditForm(Form):
     username = StringField(
         'username',
@@ -41,3 +45,6 @@ class EditForm(Form):
             DataRequired(), EqualTo('password', message='Passwords must match.')
         ]
     )
+    can_create = BooleanField('Create', default=False)
+    can_update = BooleanField('Update', default=False)
+    can_delete = BooleanField('Delete', default=False)

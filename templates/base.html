@@ -55,10 +55,55 @@
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/formvalidator.js') }}" ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/formmanipulator.js') }}" ></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/datepicker.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/additional-method.js') }}" ></script>
   </body>
+  <div id="withdrawSavingsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        			<h3 id="withdrawModalLabel">Withdraw Savings?</h3>
+        	</div>
+        	<form id="withdrawSavingsForm" action='/savings/contributions/savingswithdraw' method="POST">
+            	<div class="modal-body">
+            	    <label for="customerName">Name:</label>
+            	    <input type="hidden" name="customerId" id="customerId" value="" />
+                    <input type="text" name="customerName" id="customerName" value="" readonly/>
+                    <label for="amountValue">Amount:</label>
+                    <input type="text" name="amountValue" id="amountValue" value="" readonly/>
+            	</div>
+            	<div class="modal-footer">
+            		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            		<button id="saveChanges" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">OK</button>
+            	</div>
+            </form>
+        </div>
+	</div>
+  </div>
+  <div id="ConfirmDeleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        			<h3 id="confirmDeleteLabel">Delete Record?</h3>
+        	</div>
+        	<form id="deleteForm" method="POST">
+            	<div class="modal-body">
+            	    <label for="username">Are you sure want to delete user:</label>
+            	    <input type="hidden" name="userid" id="userid" value="" />
+                    <input type="text" name="username" id="username" value="" readonly/>
+            	</div>
+            	<div class="modal-footer">
+            		<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+            		<button id="okdelete" name="okdelete" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Yes</button>
+            	</div>
+            </form>
+        </div>
+	</div>
+  </div>
 </html>

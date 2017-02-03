@@ -42,7 +42,6 @@ def logout():
 def register():
     from coinage import db
     from users.models import User
-    from models import Account
     form = RegisterForm()
     error = None
     if form.validate_on_submit():
@@ -53,13 +52,12 @@ def register():
                 email=form.email.data,
                 password=form.password.data
             )
-            account = Account()
-            rights = 1 if user.name == 'admin' else 0;
-            account.create = rights
-            account.update = rights
-            account.delete = rights
-            account.User.append(user)
-            db.session.add(account)
+
+            rights = True if user.name == 'admin' else False;
+            user.can_delete = rights
+            user.can_update = rights
+            user.can_create = rights
+            db.session.add(user)
             db.session.commit()
             login_user(user)
 

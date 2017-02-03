@@ -13,7 +13,6 @@ def users():
     from models import User
     try:
         query_users = User.query.order_by(User.name)
-
         return render_template('users.html', query_users=query_users)
     except TemplateNotFound:
         abort(404)
@@ -23,34 +22,56 @@ def users():
 def edituser(id):
     from coinage import db
     from models import User
-    if not current_user.name == 'admin':
+    if not current_user.can_update:
         return redirect(url_for('users.users'))
     user = User.query.filter_by(id=id).first()
     form = EditForm()
     form.username.data = user.name
     form.email.data = user.email
+    form.can_create.data = user.can_create
+    form.can_delete.data = user.can_delete
+    form.can_update.data = user.can_update
     error = None
-    if form.validate_on_submit():
-        if user is None:
-            error = 'User name ' + form.username.data + ' cannot be found.'
-        else:
-            db.session.commit()
-            return redirect(url_for('users.users'))
-    return render_template('edit.html', form=form, error=error, instruction='Edit user', title='Edit User')
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            if user is None:
+                error = 'User name ' + form.username.data + ' cannot be found.'
+            else:
+                # TODO: update records doesn't work
+                user.set_property(
+                    can_create=form.can_create.data,
+                    can_update=form.can_update.data,
+                    can_delete=form.can_delete.data,
+                    name=form.username.data,
+                    email=form.email.data,
+                    password=form.password.data
+                )
+                db.session.merge(user)
+                db.session.commit()
+                return redirect(url_for('users.users'))
+    return render_template('edit.html', form=form, error=error)
 
-@users_blueprint.route("/users/delete/<id>", methods=['POST'])   # pragma: no cover)
+@users_blueprint.route("/users/delete", methods=['POST'])   # pragma: no cover)
 @login_required
-def deleteuser(id):
-    if not current_user.name == 'admin':
+def deleteuser():
+    from coinage import db
+    from models import User
+    if not current_user.can_delete:
+        return redirect(url_for('users.users'))
+    id = request.form['userid']
+    user = User.query.filter_by(id=id).first()
+    if not user is None:
+        db.session.delete(user)
+        db.session.commit()
         return redirect(url_for('users.users'))
 
-    return redirect(url_for('users.users'))
-
 @users_blueprint.route(
-    '/add/', methods=['GET', 'POST'])   # pragma: no cover
+    '/users/create', methods=['GET', 'POST'])   # pragma: no cover
 def add():
     from coinage import db
     from models import User
+    if not current_user.can_create:
+        return redirect(url_for('users.users'))
     form = AddForm()
     error = None
     if form.validate_on_submit():
@@ -59,12 +80,18 @@ def add():
             user = User(
                 name=form.username.data,
                 email=form.email.data,
-                password=form.password.data
+                password=form.password.data,
+                can_create=form.can_create.data,
+                can_update=form.can_update.data,
+                can_delete=form.can_delete.data
             )
+            # if request.method == 'POST':
+            #     user.can_create = int(request.form.get('can_create_hv', 0))
+            #     user.can_delete = int(request.form.get('can_delete_hv', 0))
+            #     user.can_update = int(request.form.get('can_update_hv', 0))
             db.session.add(user)
             db.session.commit()
-            login_user(user)
-            return redirect(url_for('home.home'))
+            return redirect(url_for('users.users'))
         else:
             error = 'User name ' + form.username.data + ' is already taken.'
-    return render_template('register.html', form=form, error=error, instruction='Please register', title='Register')
+    return render_template('add.html', form=form, error=error)
