@@ -20,5 +20,4 @@ wsgiref==0.1.2
 mysql-connector==2.1.4
 python-mysql
 py_bcrypt
-;MySQL_python-1.2.5-cp27-none-win_amd64.whl
-;py_bcrypt-0.3.post2-cp27-none-win_amd64.whl
+
