@@ -18,6 +18,6 @@ gunicorn==19.0.0
 itsdangerous==0.24
 wsgiref==0.1.2
 mysql-connector==2.1.4
-python-mysql
-py_bcrypt
+mysql-python
+bcrypt
 
