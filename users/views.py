@@ -33,17 +33,14 @@ def edituser(id):
     form.can_delete.data = user.can_delete
     form.can_update.data = user.can_update
     error = None
-    checkuser = None
     if request.method == 'POST':
         if form.validate_on_submit():
+            userexist = None
+            # TODO: cannot change username if it's already exist
             if currentname is not form.username.data.strip():
-                checkuser = User.query.filter_by(name=form.username.data.strip()).first()
+                userexist = User.query.filter_by(name=form.username.data.strip()).first()
 
-            if not (checkuser is None):
-                error = 'User name ' + form.username.data + ' is already taken.'
-                return render_template('edit.html', form=form, error=error)
-            else:
-                # TODO: update records doesn't work
+            if userexist is None:
                 form = EditForm(request.form)
                 user.set_property(
                     can_create=int(request.form['can_create_hv']),
@@ -55,6 +52,8 @@ def edituser(id):
                 )
                 db.session.commit()
                 return redirect(url_for('users.users'))
+            else:
+                error = 'User name ' + form.username.data + ' is already taken.'
     return render_template('edit.html', form=form, error=error)
 
 @users_blueprint.route("/users/delete", methods=['POST'])   # pragma: no cover)
