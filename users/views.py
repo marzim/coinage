@@ -26,27 +26,33 @@ def edituser(id):
         return redirect(url_for('users.users'))
     user = User.query.filter_by(id=id).first()
     form = EditForm()
+    currentname = user.name
     form.username.data = user.name
     form.email.data = user.email
     form.can_create.data = user.can_create
     form.can_delete.data = user.can_delete
     form.can_update.data = user.can_update
     error = None
+    checkuser = None
     if request.method == 'POST':
         if form.validate_on_submit():
-            if user is None:
-                error = 'User name ' + form.username.data + ' cannot be found.'
+            if currentname is not form.username.data.strip():
+                checkuser = User.query.filter_by(name=form.username.data.strip()).first()
+
+            if not (checkuser is None):
+                error = 'User name ' + form.username.data + ' is already taken.'
+                return render_template('edit.html', form=form, error=error)
             else:
                 # TODO: update records doesn't work
+                form = EditForm(request.form)
                 user.set_property(
-                    can_create=form.can_create.data,
-                    can_update=form.can_update.data,
-                    can_delete=form.can_delete.data,
-                    name=form.username.data,
-                    email=form.email.data,
+                    can_create=int(request.form['can_create_hv']),
+                    can_update=int(request.form['can_update_hv']),
+                    can_delete=int(request.form['can_delete_hv']),
+                    name=form.username.data.strip(),
+                    email=form.email.data.strip(),
                     password=form.password.data
                 )
-                db.session.merge(user)
                 db.session.commit()
                 return redirect(url_for('users.users'))
     return render_template('edit.html', form=form, error=error)
@@ -78,8 +84,8 @@ def add():
         user = User.query.filter_by(name=form.username.data.strip()).first()
         if user is None:
             user = User(
-                name=form.username.data,
-                email=form.email.data,
+                name=form.username.data.strip(),
+                email=form.email.data.strip(),
                 password=form.password.data,
                 can_create=form.can_create.data,
                 can_update=form.can_update.data,

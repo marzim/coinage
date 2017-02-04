@@ -8,14 +8,14 @@ class User(db.Model):
     name = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(150), unique=False)
     password = db.Column(db.String(150))
-    can_create = db.Column(db.Boolean, default=False)
-    can_update = db.Column(db.Boolean, default=False)
-    can_delete = db.Column(db.Boolean, default=False)
+    can_create = db.Column(db.Integer)
+    can_update = db.Column(db.Integer)
+    can_delete = db.Column(db.Integer)
 
-    def __init__(self, can_create=False, can_update=False, can_delete=False, name=None, email=None, password=None):
+    def __init__(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None):
         self.set_property(can_create, can_update, can_delete, name, email, password)
 
-    def set_property(self, can_create=False, can_update=False, can_delete=False, name=None, email=None, password=None):
+    def set_property(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None):
         self.name = name
         self.email = email
         self.password = bcrypt.generate_password_hash(password)

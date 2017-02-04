@@ -64,11 +64,11 @@
         </span>
       </p>
      <p>
-        {{ form.can_create.label }}&nbsp;&nbsp;{{ form.can_create }}
+        {{ form.can_create }}    {{ form.can_create.label }}
          &nbsp;&nbsp;&nbsp;&nbsp;
-         {{ form.can_update.label }}&nbsp;&nbsp;{{ form.can_update }}
+         &nbsp;&nbsp;{{ form.can_update }}    {{ form.can_update.label }}
          &nbsp;&nbsp;&nbsp;&nbsp;
-         {{ form.can_delete.label }}&nbsp;&nbsp;{{ form.can_delete }}
+         &nbsp;&nbsp;{{ form.can_delete }}    {{ form.can_delete.label }}
          &nbsp;&nbsp;&nbsp;&nbsp;
 
         <!-- <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ can_create }}">

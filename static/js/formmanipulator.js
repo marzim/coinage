@@ -27,10 +27,8 @@ $(document).ready(function(){
     }
 
     function setCheckBoxValue(checkbox, hidden){
-        if($(hidden).val() === 'True'){
+        if($(hidden).val() === '1'){
             $(checkbox).prop('checked', true);
-        }else{
-            $(checkbox).prop('checked', false);
         }
     }
  });
