@@ -29,66 +29,31 @@
     <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
       <p>
-        {{ form.username(type="text", class="form-control", autofocus="true", placeholder="username") }}
-        <span class="error">
-          {% if form.username.errors %}
-            {% for error in form.username.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ form.username(type="text", disabled="disabled", class="form-control", placeholder="username") }}
+
       </p>
       <p>
-      {{ form.email(type="text", class="form-control", placeholder="email") }}
-        <span class="error">
-          {% if form.email.errors %}
-            {% for error in form.email.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+      {{ form.email(type="text", class="form-control", disabled="disabled", placeholder="email") }}
       </p>
-      <p>
-      {{ form.password(type="password", class="form-control", placeholder="password") }}
-        <span class="error">
-          {% if form.password.errors %}
-            {% for error in form.password.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
-      </p>
-      <p>
-      {{ form.confirm(type="password", class="form-control", placeholder="confirm") }}
-        <span class="error">
-          {% if form.confirm.errors %}
-            {% for error in form.confirm.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
-      </p>
-      <p>
         <!--{{ form.can_create.label }}&nbsp;&nbsp;{{ form.can_create }}
          &nbsp;&nbsp;&nbsp;&nbsp;
          {{ form.can_update.label }}&nbsp;&nbsp;{{ form.can_update }}
          &nbsp;&nbsp;&nbsp;&nbsp;
          {{ form.can_delete.label }}&nbsp;&nbsp;{{ form.can_delete }}-->
-         &nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-          <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ form.can_create.data }}">
-          <input type="checkbox" id="can_create" class="action-checkbox" title="Can create user."> Create
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-          <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ form.can_update.data }}">
-          <input type="checkbox" id="can_update" class="action-checkbox" title="Can update user."> Update
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-          <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ form.can_delete.data }}">
-          <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete user."> Delete
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;
-      </p>
-      <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+     &nbsp;<div class="panel panel-default">
+          <div class="panel-heading">Access rights</div>
+          <div class="panel-body">
+              <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ form.can_create.data }}">
+              <input type="checkbox" id="can_create" class="action-checkbox"><b> Create </b>- can create any tasks/user/customers.
+              <br><br>
+              <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ form.can_update.data }}">
+              <input type="checkbox" id="can_update" class="action-checkbox"><b> Update </b> - can update any tasks/user/customers.
+              <br><br>
+              <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ form.can_delete.data }}">
+              <input type="checkbox" id="can_delete" class="action-checkbox"><b> Delete </b> - can delete any tasks/user/customers.
+          </div>
+      </div>&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
     </form>
 {% endblock %}
 </div>

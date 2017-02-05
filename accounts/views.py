@@ -53,7 +53,7 @@ def register():
                 password=form.password.data
             )
 
-            rights = True if user.name == 'admin' else False;
+            rights = 1 if user.name == 'admin' else 0;
             user.can_delete = rights
             user.can_update = rights
             user.can_create = rights

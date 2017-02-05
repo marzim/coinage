@@ -26,7 +26,6 @@ def edituser(id):
         return redirect(url_for('users.users'))
     user = User.query.filter_by(id=id).first()
     form = EditForm()
-    currentname = user.name
     form.username.data = user.name
     form.email.data = user.email
     form.can_create.data = user.can_create
@@ -35,25 +34,22 @@ def edituser(id):
     error = None
     if request.method == 'POST':
         if form.validate_on_submit():
-            userexist = None
+            #userexist = None
             # TODO: cannot change username if it's already exist
-            if currentname is not form.username.data.strip():
-                userexist = User.query.filter_by(name=form.username.data.strip()).first()
+            #if currentname is not form.username.data.strip():
+            #    userexist = User.query.filter_by(name=form.username.data.strip()).first()
 
-            if userexist is None:
-                form = EditForm(request.form)
-                user.set_property(
-                    can_create=int(request.form['can_create_hv']),
-                    can_update=int(request.form['can_update_hv']),
-                    can_delete=int(request.form['can_delete_hv']),
-                    name=form.username.data.strip(),
-                    email=form.email.data.strip(),
-                    password=form.password.data
-                )
-                db.session.commit()
-                return redirect(url_for('users.users'))
-            else:
-                error = 'User name ' + form.username.data + ' is already taken.'
+            form = EditForm(request.form)
+            user.set_property(
+                can_create=int(request.form['can_create_hv']),
+                can_update=int(request.form['can_update_hv']),
+                can_delete=int(request.form['can_delete_hv']),
+                name=user.name,
+                email=user.email,
+                password=user.password
+            )
+            db.session.commit()
+            return redirect(url_for('users.users'))
     return render_template('edit.html', form=form, error=error)
 
 @users_blueprint.route("/users/delete", methods=['POST'])   # pragma: no cover)
@@ -78,6 +74,9 @@ def add():
     if not current_user.can_create:
         return redirect(url_for('users.users'))
     form = AddForm()
+    form.can_create.data = 0
+    form.can_delete.data = 0
+    form.can_update.data = 0
     error = None
     if form.validate_on_submit():
         user = User.query.filter_by(name=form.username.data.strip()).first()
@@ -86,9 +85,9 @@ def add():
                 name=form.username.data.strip(),
                 email=form.email.data.strip(),
                 password=form.password.data,
-                can_create=form.can_create.data,
-                can_update=form.can_update.data,
-                can_delete=form.can_delete.data
+                can_create=int(request.form['can_create_hv']),
+                can_update=int(request.form['can_update_hv']),
+                can_delete=int(request.form['can_delete_hv'])
             )
             # if request.method == 'POST':
             #     user.can_create = int(request.form.get('can_create_hv', 0))
