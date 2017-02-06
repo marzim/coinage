@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
@@ -27,4 +27,52 @@ class RegisterForm(Form):
         validators=[
             DataRequired(), EqualTo('password', message='Passwords must match.')
         ]
+    )
+
+class SettingForm(Form):
+
+    username = StringField(
+        'username',
+        validators=[DataRequired(), Length(min=3, max=25)]
+    )
+    email = StringField(
+        'email',
+        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
+    )
+
+    password = PasswordField(
+        'old password',
+        validators=[DataRequired(), Length(min=6, max=25)]
+    )
+    newpassword = PasswordField(
+        'newpassword',
+        validators=[
+            DataRequired(), Length(min=6, max=25)
+        ]
+    )
+    confirm = PasswordField(
+        'Repeat password',
+        validators=[
+            DataRequired(), EqualTo('newpassword', message='Passwords must match.')
+        ]
+    )
+
+class EditEmailForm(Form):
+    username = StringField(
+        'username',
+        validators=[DataRequired(), Length(min=3, max=25)]
+    )
+    email = StringField(
+        'email',
+        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
+    )
+
+    newemail = StringField(
+        'new email',
+        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
+    )
+
+    confirm = StringField(
+        'confirm email',
+        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
     )

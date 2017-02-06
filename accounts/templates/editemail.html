@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% block title %}Edit Email{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ super() }}
+{% endblock %}
+{% block container %}
+{{ super() }}
+{% endblock %}
+{% block membercontent %}
+<div class="col-sm-offset-3 main">
+<ul class="nav nav-tabs actions-nav">
+  <li>
+    <a href="/editpassword" title="Change Password">Change Password</a>
+  </li>
+
+  <li class="active">
+    <a href="#">Change Email</a>
+  </li>
+</ul>
+    <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
+      {{ form.csrf_token }}
+      <p>
+        {{ form.username(type="text", disabled="disabled", class="form-control", placeholder="username") }}
+
+      </p>
+      <p>
+      {{ form.email(type="text", autofocus="true", class="form-control", placeholder="Current Email") }}
+        <span class="error">
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+        <p>
+      {{ form.newemail(type="text", class="form-control", placeholder="New Email") }}
+        <span class="error">
+          {% if form.newemail.errors %}
+            {% for error in form.newemail.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+        <p>
+      {{ form.confirm(type="text", class="form-control", placeholder="Confirm Email") }}
+        <span class="error">
+          {% if form.confirm.errors %}
+            {% for error in form.confirm.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+        &nbsp;&nbsp;&nbsp;
+    <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+    </form>
+{% endblock %}
+</div>

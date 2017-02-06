@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, abort, flash, request, url_for, re
 from jinja2 import TemplateNotFound
 from flask_login import login_user, login_required, logout_user, current_user
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, SettingForm
 
 accounts_blueprint = Blueprint('accounts', __name__, static_folder='static', static_url_path='/static/accounts',
                       template_folder='./templates')
@@ -65,3 +65,34 @@ def register():
         else:
             error = 'User name ' + form.username.data + ' is already taken.'
     return render_template('register.html', form=form, error=error, instruction='Please register', title='Register')
+
+@accounts_blueprint.route(
+    '/setting/', methods=['GET', 'POST'])   # pragma: no cover
+@login_required
+def setting():
+    from coinage import bcrypt
+    from coinage import db
+    from users.models import User
+    user = User.query.filter_by(id=current_user.id).first()
+    form = SettingForm()
+    form.username.data = user.name
+    form.email.data = user.email
+    error = None
+    if request.method == 'POST':
+        equalPassword = bcrypt.check_password_hash(user.password, request.form['password']);
+        if not equalPassword:
+            form.password.errors = ['Password does not match with the current password.'];
+        else:
+            if form.validate_on_submit():
+                form = SettingForm(request.form)
+                current_user.set_property(
+                    can_create=int(user.can_create),
+                    can_update=int(user.can_update),
+                    can_delete=int(user.can_delete),
+                    name=user.name,
+                    email=form.email.data,
+                    password=form.newpassword.data
+                )
+                db.session.commit()
+                return redirect(url_for('accounts.logout'))
+    return render_template('setting.html', form=form, error=error)

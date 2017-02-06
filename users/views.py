@@ -34,12 +34,6 @@ def edituser(id):
     error = None
     if request.method == 'POST':
         if form.validate_on_submit():
-            #userexist = None
-            # TODO: cannot change username if it's already exist
-            #if currentname is not form.username.data.strip():
-            #    userexist = User.query.filter_by(name=form.username.data.strip()).first()
-
-            form = EditForm(request.form)
             user.set_property(
                 can_create=int(request.form['can_create_hv']),
                 can_update=int(request.form['can_update_hv']),
