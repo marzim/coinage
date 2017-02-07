@@ -43,6 +43,7 @@ def edituser(id):
                 password=user.password
             )
             db.session.commit()
+            flash(u'Record successfully saved.','success')
             return redirect(url_for('users.users'))
     return render_template('edit.html', form=form, error=error)
 
@@ -58,6 +59,7 @@ def deleteuser():
     if not user is None:
         db.session.delete(user)
         db.session.commit()
+        flash(u'Record was successfully deleted.', 'success')
         return redirect(url_for('users.users'))
 
 @users_blueprint.route(
@@ -83,13 +85,10 @@ def add():
                 can_update=int(request.form['can_update_hv']),
                 can_delete=int(request.form['can_delete_hv'])
             )
-            # if request.method == 'POST':
-            #     user.can_create = int(request.form.get('can_create_hv', 0))
-            #     user.can_delete = int(request.form.get('can_delete_hv', 0))
-            #     user.can_update = int(request.form.get('can_update_hv', 0))
             db.session.add(user)
             db.session.commit()
+            flash(u'Record was successfully created.', 'success')
             return redirect(url_for('users.users'))
         else:
-            error = 'User name ' + form.username.data + ' is already taken.'
+            form.username.errors = ['User name ' + form.username.data + ' is already taken.']
     return render_template('add.html', form=form, error=error)

@@ -29,16 +29,7 @@ class RegisterForm(Form):
         ]
     )
 
-class SettingForm(Form):
-
-    username = StringField(
-        'username',
-        validators=[DataRequired(), Length(min=3, max=25)]
-    )
-    email = StringField(
-        'email',
-        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
-    )
+class EditPasswordForm(Form):
 
     password = PasswordField(
         'old password',
@@ -58,10 +49,6 @@ class SettingForm(Form):
     )
 
 class EditEmailForm(Form):
-    username = StringField(
-        'username',
-        validators=[DataRequired(), Length(min=3, max=25)]
-    )
     email = StringField(
         'email',
         validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
@@ -74,5 +61,5 @@ class EditEmailForm(Form):
 
     confirm = StringField(
         'confirm email',
-        validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
+        validators=[DataRequired(), Email(message=None), Length(min=6, max=40), EqualTo('newemail', message='Emails must match.')]
     )

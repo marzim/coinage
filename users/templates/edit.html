@@ -41,16 +41,16 @@
          &nbsp;&nbsp;&nbsp;&nbsp;
          {{ form.can_delete.label }}&nbsp;&nbsp;{{ form.can_delete }}-->
      &nbsp;<div class="panel panel-default">
-          <div class="panel-heading">Access rights</div>
+          <div class="panel-heading" align="center">Access rights</div>
           <div class="panel-body">
               <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ form.can_create.data }}">
-              <input type="checkbox" id="can_create" class="action-checkbox"><b> Create </b>- can create any tasks/user/customers.
-              <br><br>
+              <input type="checkbox" id="can_create" class="action-checkbox" title="Can create users/customers/tasks."><b> Create </b>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ form.can_update.data }}">
-              <input type="checkbox" id="can_update" class="action-checkbox"><b> Update </b> - can update any tasks/user/customers.
-              <br><br>
+              <input type="checkbox" id="can_update" class="action-checkbox" title="Can update users/customers/tasks."><b> Update </b>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ form.can_delete.data }}">
-              <input type="checkbox" id="can_delete" class="action-checkbox"><b> Delete </b> - can delete any tasks/user/customers.
+              <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete users/customers/tasks."><b> Delete </b>
           </div>
       </div>&nbsp;&nbsp;&nbsp;
     <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>

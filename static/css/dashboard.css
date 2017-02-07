@@ -6,8 +6,6 @@
 body {
   padding-top: 50px;
 }
-
-
 /*
  * Global add-ons
  */
@@ -16,12 +14,9 @@ body {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
-
-
 /*
  * Sidebar
  */
-
 /* Hide for mobile, show later */
 .sidebar {
   display: none;
@@ -41,7 +36,6 @@ body {
     border-right: 1px solid #eee;
   }
 }
-
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
@@ -57,7 +51,14 @@ body {
   background-color: #428bca;
 }
 
+.error{
+    color: #BE716F
+}
 
+.panel-heading{
+color: #2182d6;
+ background-color: #2182d6;
+}
 /*
  * Main content
  */
