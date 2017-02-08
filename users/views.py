@@ -12,7 +12,7 @@ users_blueprint = Blueprint('users', __name__, static_folder='static', static_ur
 def users():
     from models import User
     try:
-        query_users = User.query.order_by(User.name)
+        query_users = User.query.filter(User.name != current_user.name).order_by(User.name)
         return render_template('users.html', query_users=query_users)
     except TemplateNotFound:
         abort(404)
@@ -34,13 +34,6 @@ def edituser(id):
     error = None
     if request.method == 'POST':
         if form.validate_on_submit():
-            # user.set_property(
-            #     can_create=int(request.form['can_create_hv']),
-            #     can_update=int(request.form['can_update_hv']),
-            #     can_delete=int(request.form['can_delete_hv']),
-            #     name=user.name,
-            #     email=user.email
-            # )
             user.can_create = int(request.form['can_create_hv'])
             user.can_update = int(request.form['can_update_hv'])
             user.can_delete = int(request.form['can_delete_hv'])
@@ -92,5 +85,5 @@ def add():
             flash(u'Record was successfully created.', 'success')
             return redirect(url_for('users.users'))
         else:
-            form.username.errors = ['User name ' + form.username.data + ' is already taken.']
+            form.username.errors.append('User name ' + form.username.data + ' is already taken.')
     return render_template('add.html', form=form, error=error)

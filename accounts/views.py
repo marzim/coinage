@@ -76,19 +76,18 @@ def editpassword():
     user = User.query.filter_by(id=current_user.id).first()
     form = EditPasswordForm(request.form)
     error = None
-    success = False
     if request.method == 'POST':
-        equalPassword = bcrypt.check_password_hash(user.password, request.form['password']);
+        equalPassword = bcrypt.check_password_hash(user.password, request.form['password'])
         if form.validate_on_submit():
             if equalPassword:
                 form = EditPasswordForm(request.form)
                 user.password=bcrypt.generate_password_hash(form.newpassword.data)
                 db.session.commit()
-                success = True
-                #return redirect(url_for('accounts.logout'))
+                flash(u'Successfully changed password.', 'success')
+                flash(u'Please log out and log in using your new password.', 'info')
             else:
-                form.password.errors = ['Password does not match with the current password.'];
-    return render_template('editpassword.html', form=form, error=error, success=success)
+                form.password.errors.append('Password does not match with the current password.')
+    return render_template('editpassword.html', form=form, error=error)
 
 @accounts_blueprint.route(
     '/editemail/', methods=['GET', 'POST'])   # pragma: no cover
@@ -99,12 +98,11 @@ def editemail():
     user = User.query.filter_by(id=current_user.id).first()
     form = EditEmailForm(request.form)
     form.email.data = user.email
-    success = False
     if request.method == 'POST':
         if form.validate_on_submit():
             form = EditEmailForm(request.form)
             user.email=form.newemail.data
             db.session.commit()
-            success = True
+            flash(u'Successfully changed email address.','success')
 
-    return render_template('editemail.html', form=form, success=success)
+    return render_template('editemail.html', form=form)

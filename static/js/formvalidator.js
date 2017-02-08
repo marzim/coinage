@@ -162,13 +162,12 @@ $(document).ready(function(){
 
     $('#okdelete').click(function(e){
         e.preventDefault();
-        var userid = $(".modal-body #userid").val();
         $.ajax({
             url: '/users/delete',
             type: 'POST',
             data: $('#deleteForm').serialize(),
         });
-        location.reload();
+        location.reload(true);
     });
 });
 

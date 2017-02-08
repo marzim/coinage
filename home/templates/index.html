@@ -77,7 +77,21 @@
                         <li><a href="/guidelines">Guidelines</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-8 main">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            {% for category, m in messages %}
+                                {% if category %}
+                                <div class="alert alert-{{ category }} alert-dismissable">
+                                {% else %}
+                                <div class="alert">
+                                {% endif %}
+                                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                  {{ m }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     {% block membercontent %}{% endblock %}
                 </div>
             {% else %}
