@@ -74,26 +74,21 @@ def editpassword():
     from coinage import db
     from users.models import User
     user = User.query.filter_by(id=current_user.id).first()
-    form = EditPasswordForm()
+    form = EditPasswordForm(request.form)
     error = None
+    success = False
     if request.method == 'POST':
         equalPassword = bcrypt.check_password_hash(user.password, request.form['password']);
         if form.validate_on_submit():
             if equalPassword:
                 form = EditPasswordForm(request.form)
-                current_user.set_property(
-                    can_create=int(user.can_create),
-                    can_update=int(user.can_update),
-                    can_delete=int(user.can_delete),
-                    name=user.name,
-                    email=user.email,
-                    password=form.newpassword.data
-                )
+                user.password=bcrypt.generate_password_hash(form.newpassword.data)
                 db.session.commit()
-                return redirect(url_for('accounts.logout'))
+                success = True
+                #return redirect(url_for('accounts.logout'))
             else:
                 form.password.errors = ['Password does not match with the current password.'];
-    return render_template('editpassword.html', form=form, error=error)
+    return render_template('editpassword.html', form=form, error=error, success=success)
 
 @accounts_blueprint.route(
     '/editemail/', methods=['GET', 'POST'])   # pragma: no cover
@@ -104,20 +99,12 @@ def editemail():
     user = User.query.filter_by(id=current_user.id).first()
     form = EditEmailForm(request.form)
     form.email.data = user.email
-    error = None
     success = False
     if request.method == 'POST':
         if form.validate_on_submit():
             form = EditEmailForm(request.form)
-            current_user.set_property(
-                can_create=int(user.can_create),
-                can_update=int(user.can_update),
-                can_delete=int(user.can_delete),
-                name=user.name,
-                email=form.newemail.data,
-                password=user.password
-            )
+            user.email=form.newemail.data
             db.session.commit()
             success = True
 
-    return render_template('editemail.html', form=form, error=error, success=success)
+    return render_template('editemail.html', form=form, success=success)

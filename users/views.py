@@ -34,14 +34,16 @@ def edituser(id):
     error = None
     if request.method == 'POST':
         if form.validate_on_submit():
-            user.set_property(
-                can_create=int(request.form['can_create_hv']),
-                can_update=int(request.form['can_update_hv']),
-                can_delete=int(request.form['can_delete_hv']),
-                name=user.name,
-                email=user.email,
-                password=user.password
-            )
+            # user.set_property(
+            #     can_create=int(request.form['can_create_hv']),
+            #     can_update=int(request.form['can_update_hv']),
+            #     can_delete=int(request.form['can_delete_hv']),
+            #     name=user.name,
+            #     email=user.email
+            # )
+            user.can_create = int(request.form['can_create_hv'])
+            user.can_update = int(request.form['can_update_hv'])
+            user.can_delete = int(request.form['can_delete_hv'])
             db.session.commit()
             flash(u'Record successfully saved.','success')
             return redirect(url_for('users.users'))
