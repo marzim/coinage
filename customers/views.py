@@ -8,8 +8,10 @@ customers_blueprint = Blueprint('customers', __name__, static_folder='static', s
 @customers_blueprint.route("/customers")
 @login_required
 def customers():
+    from models import Customer
     try:
-        return render_template('customers.html')
+        query_customers = Customer.query.order_by(Customer.first_name)
+        return render_template('customers.html', query_customers=query_customers)
     except TemplateNotFound:
         abort(404)
 
