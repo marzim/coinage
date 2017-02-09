@@ -30,16 +30,10 @@
       {{ form.csrf_token }}
       <p>
         {{ form.username(type="text", disabled="disabled", class="form-control", placeholder="username") }}
-
       </p>
       <p>
       {{ form.email(type="text", class="form-control", disabled="disabled", placeholder="email") }}
       </p>
-        <!--{{ form.can_create.label }}&nbsp;&nbsp;{{ form.can_create }}
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         {{ form.can_update.label }}&nbsp;&nbsp;{{ form.can_update }}
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         {{ form.can_delete.label }}&nbsp;&nbsp;{{ form.can_delete }}-->
      &nbsp;<div class="panel panel-default">
           <div class="panel-heading" align="center">Access rights</div>
           <div class="panel-body">

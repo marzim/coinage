@@ -16,7 +16,7 @@
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/customers/create" title="Create New Customer">Create</a>
+    <a href="/customers/new" title="Create New Customer">Create</a>
   </li>
   {% endif %}
 </ul>
@@ -30,6 +30,7 @@
           <th class="col-md-1"></th>
         {% endif %}
           <th class="column-header">Name</th>
+          <th class="column-header"># of Shares</th>
           <th class="column-header">Email</th>
           <th class="column-header">Contact #</th>
       </tr>
@@ -39,7 +40,7 @@
           <tr>
               {% if current_user.can_update : %}
               <td align="center">
-                <a href="/customers/edit/{{ customer.id }}" data-toggle="tooltip" title="Edit Customer: {{ customer.name }}">
+                <a href="/customers/edit/{{ customer.id }}" data-toggle="tooltip" title="Edit Customer: {{ customer.first_name }} {{ customer.last_name }}">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>
               </td>
@@ -52,6 +53,7 @@
                 </td>
               {% endif %}
               <td>{{ customer.first_name }}  {{ customer.last_name }}</td>
+              <td>{{ customer.number_shares }}</td>
               <td>{{ customer.email }}</td>
               <td>{{ customer.mobile_phone }}</td>
           </tr>
@@ -59,5 +61,4 @@
     </tbody>
   </table>
   {% endblock %}
-
 

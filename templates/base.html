@@ -36,6 +36,7 @@
          </div>
     </div>
     {% block container %}{% endblock %}
+    {% block footer %}
     <div class="footer">
         <!-- errors -->
       {% if error %}
@@ -49,6 +50,7 @@
             CSS designed and built using the wonderful <a href="http://getbootstrap.com/">Bootstrap</a>
         </p>
     </div>
+    {% endblock %}
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/formvalidator.js') }}" ></script>

@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}Add Customer{% endblock %}
+{% block title %}Edit Customer{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -15,32 +15,23 @@
     <a href="/customers" title="List of Customers">List</a>
   </li>
   {% if  current_user.can_create: %}
+  <li>
+    <a href="/customers/new" title="Create New Customer">Create</a>
+  </li>
+  {% endif %}
+  {% if  current_user.can_update: %}
   <li class="active">
-    <a href="#" title="Create New Customer">Create</a>
+    <a href="#" title="Edit Customer">Edit</a>
   </li>
   {% endif %}
 </ul>
-    <form class="form-signin col-md-6" role="form" method="post" action="">
+    <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
       <p>
-        {{ form.first_name(type="text", class="form-control", autofocus="true", placeholder="First Name") }}
-        <span class="error">
-          {% if form.first_name.errors %}
-            {% for error in form.first_name.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ form.first_name(type="text", class="form-control", autofocus="true", placeholder="First Name", disabled="disabled") }}
       </p>
       <p>
-        {{ form.last_name(type="text", class="form-control", placeholder="Last Name") }}
-        <span class="error">
-          {% if form.last_name.errors %}
-            {% for error in form.last_name.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ form.last_name(type="text", class="form-control", placeholder="Last Name", disabled="disabled") }}
       </p>
       <p>
         {{ form.number_shares(type="text", class="form-control", placeholder="Number of Shares") }}

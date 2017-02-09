@@ -5,8 +5,7 @@ div.footer {
     }
 
     p.p_footer {
-		  position: fixed;
-    		height: 100px;
+		  	height: 100px;
 			bottom: 0;
 			width: 100%;
           margin: 0 0 9px;
