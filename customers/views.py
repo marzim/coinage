@@ -56,8 +56,8 @@ def editcustomer(id):
     try:
         if not current_user.can_update:
             return redirect(url_for('customers.customers'))
+        form = EditForm(request.form)
         customer = Customer.query.filter_by(id=id).first()
-        form = EditForm()
         form.first_name.data = customer.first_name
         form.last_name.data = customer.last_name
         form.number_shares.data = customer.number_shares
