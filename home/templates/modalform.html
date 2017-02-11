@@ -26,16 +26,17 @@
         <div class="modal-content">
         	<div class="modal-header">
         		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        			<h3 id="confirmDeleteLabel">Delete Record?</h3>
+                <h3 id="confirmDeleteLabel" align="center"><span class="label label-danger">Delete Record?</span></h3>
         	</div>
         	<form id="deleteForm" method="POST">
-            	<div class="modal-body">
-            	    <label for="name">Are you sure want to delete this record?   </label>
+            	<div class="modal-body" align="center">
+            	    <label for="name">Are you sure want to delete this record?</label>
             	    <input type="hidden" name="id" id="id" value="" />
                     <input type="hidden" name="url" id="url" value="" />
+                    <br>
                     <input type="text" name="name" id="name" value="" readonly/>
             	</div>
-            	<div class="modal-footer">
+            	<div class="modal-footer" align="center">
             		<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
             		<button id="okdelete" name="okdelete" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Yes</button>
             	</div>
