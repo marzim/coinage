@@ -49,7 +49,7 @@ def deleteuser():
     from models import User
     if not current_user.can_delete:
         return redirect(url_for('users.users'))
-    id = request.form['userid']
+    id = request.form['id']
     user = User.query.filter_by(id=id).first()
     if not user is None:
         db.session.delete(user)

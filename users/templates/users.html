@@ -46,7 +46,7 @@
               {% endif %}
               {% if current_user.can_delete : %}
               <td align="center" >
-                <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDeleteUser' data-userid="{{ user.id }}" data-username="{{ user.name }}" title="Delete User: {{ user.name }}">
+                <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-id="{{ user.id }}" data-url="/users/delete" data-name="{{ user.name }}" title="Delete User: {{ user.name }}">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
                 </td>

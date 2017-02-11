@@ -152,18 +152,21 @@ $(document).ready(function(){
         location.reload();
     });
 
-    $('.confirmDeleteUser').click(function(e){
+    $('.confirmDelete').click(function(e){
        e.preventDefault();
-        var userid = $(this).data('userid');
-        var username = $(this).data('username');
-        $(".modal-body #userid").val(userid);
-        $(".modal-body #username").val(username);
+        var userid = $(this).data('id');
+        var username = $(this).data('name');
+        var url = $(this).data('url');
+        $(".modal-body #id").val(userid);
+        $(".modal-body #name").val(username);
+        $(".modal-body #url").val(url);
     });
 
     $('#okdelete').click(function(e){
+        var url = $(".modal-body #url").val();
         e.preventDefault();
         $.ajax({
-            url: '/users/delete',
+            url: url,
             type: 'POST',
             data: $('#deleteForm').serialize(),
         });

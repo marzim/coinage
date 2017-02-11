@@ -90,4 +90,17 @@ def editcustomer(id):
     except TemplateNotFound:
         abort(404)
 
-
+@customers_blueprint.route("/customers/delete", methods=['POST'])   # pragma: no cover)
+@login_required
+def deletecustomer():
+    from coinage import db
+    from models import Customer
+    if not current_user.can_delete:
+        return redirect(url_for('customers.customers'))
+    id = request.form['id']
+    customer = Customer.query.filter_by(id=id).first()
+    if not customer is None:
+        db.session.delete(customer)
+        db.session.commit()
+        flash(u'Record was successfully deleted.', 'success')
+        return redirect(url_for('customers.customers'))
