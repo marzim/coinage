@@ -154,11 +154,11 @@ $(document).ready(function(){
 
     $('.confirmDelete').click(function(e){
        e.preventDefault();
-        var userid = $(this).data('id');
-        var username = $(this).data('name');
+        var id = $(this).data('id');
+        var name = $(this).data('name');
         var url = $(this).data('url');
-        $(".modal-body #id").val(userid);
-        $(".modal-body #name").val(username);
+        $(".modal-body #id").val(id);
+        $(".modal-body #name").text(" '"+ name + "' ");
         $(".modal-body #url").val(url);
     });
 
