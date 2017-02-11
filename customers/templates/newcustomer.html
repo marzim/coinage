@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
 {% block title %}Add Customer{% endblock %}
 {% block head %}
   {{ super() }}
@@ -23,64 +24,21 @@
     <form class="form-signin col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
       <p>
-        {{ form.first_name(type="text", class="form-control", autofocus="true", placeholder="First Name") }}
-        <span class="error">
-          {% if form.first_name.errors %}
-            {% for error in form.first_name.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.first_name, type="text", class="form-control", autofocus="true", placeholder="First Name") }}
       </p>
       <p>
-        {{ form.last_name(type="text", class="form-control", placeholder="Last Name") }}
-        <span class="error">
-          {% if form.last_name.errors %}
-            {% for error in form.last_name.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.last_name, type="text", class="form-control", placeholder="Last Name") }}
+      <p>
+        {{ render_field(form.number_shares, type="text", class="form-control", placeholder="Number of Shares") }}
       </p>
       <p>
-        {{ form.number_shares(type="text", class="form-control", placeholder="Number of Shares") }}
-        <span class="error">
-          {% if form.number_shares.errors %}
-            {% for error in form.number_shares.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.email, type="text", class="form-control", placeholder="Email Address") }}
       </p>
       <p>
-      {{ form.email(type="text", class="form-control", placeholder="Email Address") }}
-        <span class="error">
-          {% if form.email.errors %}
-            {% for error in form.email.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.address, type="text", class="form-control", placeholder="Address") }}
       </p>
       <p>
-        {{ form.address(type="text", class="form-control", placeholder="Address") }}
-        <span class="error">
-          {% if form.address.errors %}
-            {% for error in form.address.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
-      </p>
-      <p>
-        {{ form.mobile_phone(type="text", class="form-control", placeholder="Cellular Number") }}
-        <span class="error">
-          {% if form.mobile_phone.errors %}
-            {% for error in form.mobile_phone.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.mobile_phone, type="text", class="form-control", placeholder="Cellular Number") }}
       </p>
 
       <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>

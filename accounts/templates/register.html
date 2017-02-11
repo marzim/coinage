@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
   {{ super() }}
@@ -12,44 +13,16 @@
           {{ form.csrf_token }}
             <h2 class="form-sign-heading">{{ instruction }}</h2>
           <p>
-            {{ form.username(type="text", class="form-control", autofocus="true", placeholder="username") }}
-            <span class="error">
-              {% if form.username.errors %}
-                {% for error in form.username.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
+            {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
           </p>
           <p>
-          {{ form.email(type="text", class="form-control", placeholder="email") }}
-            <span class="error">
-              {% if form.email.errors %}
-                {% for error in form.email.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
+            {{ render_field(form.email, type="text", class="form-control", placeholder="email") }}
           </p>
           <p>
-          {{ form.password(type="password", class="form-control", placeholder="password") }}
-            <span class="error">
-              {% if form.password.errors %}
-                {% for error in form.password.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
+            {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
           </p>
           <p>
-          {{ form.confirm(type="password", class="form-control", placeholder="confirm") }}
-            <span class="error">
-              {% if form.confirm.errors %}
-                {% for error in form.confirm.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
+            {{ render_field(form.confirm, type="password", class="form-control", placeholder="confirm") }}
           </p>
           <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
         </form>

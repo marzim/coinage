@@ -52,11 +52,9 @@ def register():
                 email=form.email.data,
                 password=form.password.data
             )
-
-            rights = 1 if user.name == 'admin' else 0;
-            user.can_delete = rights
-            user.can_update = rights
-            user.can_create = rights
+            user.can_delete = 0
+            user.can_update = 0
+            user.can_create = 0
             db.session.add(user)
             db.session.commit()
             login_user(user)

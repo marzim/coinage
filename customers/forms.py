@@ -11,8 +11,7 @@ class AddForm(Form):
         'lastname',
         validators=[InputRequired(), Length(min=3, max=25)]
     )
-    number_shares = IntegerField('numbershares',
-                                 validators=[InputRequired()])
+    number_shares = IntegerField('number_shares')
     email = StringField(
         'email',
         validators=[InputRequired(), Email(message=None), Length(min=6, max=40)]
@@ -22,21 +21,20 @@ class AddForm(Form):
         validators=[InputRequired(), Length(min=3, max=25)]
     )
     mobile_phone = StringField(
-        'mobilephone',
+        'mobile_phone',
         validators=[InputRequired(), Length(min=3, max=25)]
     )
 
-class EditForm(Form):
+class EditCustomerForm(Form):
     first_name = StringField(
-        'firstname',
+        'first_name',
         validators=[DataRequired(), Length(min=3, max=25)]
     )
     last_name = StringField(
-        'lastname',
+        'last_name',
         validators=[DataRequired(), Length(min=3, max=25)]
     )
-    number_shares = IntegerField('numbershares',
-                                 validators=[InputRequired()])
+    number_shares = IntegerField('number_shares')
     email = StringField(
         'email',
         validators=[DataRequired(), Email(message=None), Length(min=6, max=40)]
@@ -46,6 +44,6 @@ class EditForm(Form):
         validators=[DataRequired(), Length(min=3, max=25)]
     )
     mobile_phone = StringField(
-        'mobilephone',
+        'mobile_phone',
         validators=[DataRequired(), Length(min=3, max=25)]
     )

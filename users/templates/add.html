@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
 {% block title %}Add User{% endblock %}
 {% block head %}
   {{ super() }}
@@ -24,52 +25,18 @@
     <form class="form-signin col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
       <p>
-        {{ form.username(type="text", class="form-control", autofocus="true", placeholder="username") }}
-        <span class="error">
-          {% if form.username.errors %}
-            {% for error in form.username.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
       </p>
       <p>
-      {{ form.email(type="text", class="form-control", placeholder="email") }}
-        <span class="error">
-          {% if form.email.errors %}
-            {% for error in form.email.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.email, type="text", class="form-control", placeholder="email") }}
       </p>
       <p>
-      {{ form.password(type="password", class="form-control", placeholder="password") }}
-        <span class="error">
-          {% if form.password.errors %}
-            {% for error in form.password.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
       </p>
       <p>
-      {{ form.confirm(type="password", class="form-control", placeholder="confirm") }}
-        <span class="error">
-          {% if form.confirm.errors %}
-            {% for error in form.confirm.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+        {{ render_field(form.confirm, type="password", class="form-control", placeholder="confirm") }}
       </p>
      <p>
-        <!--{{ form.can_create }}    {{ form.can_create.label }}
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         &nbsp;&nbsp;{{ form.can_update }}    {{ form.can_update.label }}
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         &nbsp;&nbsp;{{ form.can_delete }}    {{ form.can_delete.label }}
-        --> &nbsp;&nbsp;&nbsp;&nbsp;
       <div class="panel panel-default">
           <div class="panel-heading" align="center">Access rights</div>
           <div class="panel-body">
@@ -83,18 +50,6 @@
               <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete users/customers/tasks."><b> Delete </b>
           </div>
       </div>&nbsp;&nbsp;&nbsp;
-        <!-- <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ can_create }}">
-         <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ can_update }}">
-         <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ can_delete }}">
-          <label>
-          <input type="checkbox" id="can_create" class="action-checkbox" title="Can create user."> Create
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-          <input type="checkbox" id="can_update" class="action-checkbox" title="Can update user."> Update
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <label>
-          <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete user."> Delete
-          </label>&nbsp;&nbsp;&nbsp;&nbsp;-->
       </p>
       <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
     </form>
