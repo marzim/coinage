@@ -43,7 +43,6 @@ def register():
     from coinage import db
     from users.models import User
     form = RegisterForm()
-    error = None
     if form.validate_on_submit():
         user = User.query.filter_by(name=form.username.data.strip()).first()
         if user is None:
@@ -58,11 +57,10 @@ def register():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-
             return redirect(url_for('home.home'))
         else:
             error = 'User name ' + form.username.data + ' is already taken.'
-    return render_template('register.html', form=form, error=error, instruction='Please register', title='Register')
+    return render_template('register.html', form=form)
 
 @accounts_blueprint.route(
     '/editpassword/', methods=['GET', 'POST'])   # pragma: no cover

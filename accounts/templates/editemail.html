@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
 {% block title %}Edit Email{% endblock %}
 {% block head %}
   {{ super() }}
@@ -23,34 +24,13 @@
     <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
       <p>
-      {{ form.email(type="text", class="form-control", placeholder="Current Email") }}
-        <span class="error">
-          {% if form.email.errors %}
-            {% for error in form.email.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+      {{ render_field(form.email, type="text", class="form-control", placeholder="Current Email") }}
       </p>
-        <p>
-      {{ form.newemail(type="text", autofocus="true", class="form-control", placeholder="New Email") }}
-        <span class="error">
-          {% if form.newemail.errors %}
-            {% for error in form.newemail.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+      <p>
+      {{ render_field(form.newemail, type="text", autofocus="true", class="form-control", placeholder="New Email") }}
       </p>
-        <p>
-      {{ form.confirm(type="text", class="form-control", placeholder="Confirm Email") }}
-        <span class="error">
-          {% if form.confirm.errors %}
-            {% for error in form.confirm.errors %}
-              {{ error }}
-            {% endfor %}
-          {% endif %}
-        </span>
+      <p>
+      {{ render_field(form.confirm, type="text", class="form-control", placeholder="Confirm Email") }}
       </p>
         &nbsp;&nbsp;&nbsp;
     <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
