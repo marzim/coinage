@@ -26,3 +26,11 @@ class Loan(db.Model):
         self.date_release = date_release
         self.date_due = date_due
 
+class Interest(db.Model):
+    __tablename__ = "interest"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False)
+
+    def __init__(self, name=None):
+        self.name=name

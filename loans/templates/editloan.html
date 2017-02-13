@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
+{% block title %}Edit Loan{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ super() }}
+{% endblock %}
+{% block container %}
+{{ super() }}
+{% endblock %}
+{% block membercontent %}
+<div>
+<ul class="nav nav-tabs actions-nav">
+  <li>
+    <a href="/users" title="List of Loans">List</a>
+  </li>
+  {% if  current_user.can_create: %}
+  <li>
+    <a href="/users/create" title="Create New Loan">Create</a>
+  </li>
+  {% endif %}
+  {% if  current_user.can_update: %}
+  <li class="active">
+    <a href="#">Edit</a>
+  </li>
+    {% endif %}
+</ul>
+    <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
+      {{ form.csrf_token }}
+      <p>
+        {{ form.name(type="text", autofocus="True", class="form-control") }}
+      </p>
+
+    <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+    </form>
+{% endblock %}
+</div>

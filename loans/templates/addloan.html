@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% from "formhelpers.html" import render_field %}
+{% block title %}New Loan{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ super() }}
+{% endblock %}
+{% block container %}
+{{ super() }}
+{% endblock %}
+{% block membercontent %}
+<div>
+<ul class="nav nav-tabs actions-nav">
+  <li>
+    <a href="/loans" title="List of Loans">List</a>
+  </li>
+  {% if  current_user.can_create: %}
+  <li class="active">
+    <a href="#" title="Create New Loan">Create</a>
+  </li>
+  {% endif %}
+</ul>
+    <form class="well" role="form" method="post" action="">
+      {{ form.csrf_token }}
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+          <label>Customer Name</label>
+          <p>
+            {{ form.customer_name(type="text", autofocus="True", class="form-control") }}
+          </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+          <label>Date Release</label>
+          <div class="input-group date" id="dp3" style="width:50%;" data-date-format="mm-dd-yyyy">
+            <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel" value="" >
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Amount</label>
+            <p>
+              {{ render_field(form.amount, type="text", class="form-control") }}
+            </p>
+          </div>
+            <div class="col-6 col-sm-6 col-lg-4">
+              <label>Date Due</label>
+              <div class="input-group date" id="divdate_due" style="width:50%;" data-date-format="mm-dd-yyyy">
+                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" value="" >
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+        </div>
+      <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Interest per Month</label>
+            <p>
+              {{ form.interest(type="text", class="form-control", style="width:50%;") }}
+            </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payable</label>
+            {{ render_field(form.total_payable, type="text", class="form-control", style="width:50%;") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+
+        <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}
+</div>
