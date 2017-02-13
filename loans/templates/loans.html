@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% include "modalform.html" %}
 {% block title %}Loans{% endblock %}
 {% block head %}
   {{ super() }}
@@ -9,3 +10,57 @@
 {% block container %}
 {{ super() }}
 {% endblock %}
+{% block membercontent %}
+<ul class="nav nav-tabs actions-nav">
+  <li class="active">
+    <a href="#">List ({{ query_loans.count() }})</a>
+  </li>
+  {% if  current_user.can_create: %}
+  <li>
+    <a href="/loans/new" title="Create New Loan">Create</a>
+  </li>
+  {% endif %}
+</ul>
+  <table class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
+      <tr>
+        {% if  current_user.can_update or current_user.can_delete: %}
+          <th class="col-md-1"></th>
+        {% endif %}
+          <th class="column-header">Name</th>
+          <th class="column-header">Amount</th>
+          <th class="column-header">Interest</th>
+          <th class="column-header">Total Payable</th>
+          <th class="column-header">Total Payment</th>
+          <th class="column-header">Outstanding Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for loan, customer in query_loans: %}
+          <tr>
+              {% if current_user.can_update or current_user.can_delete : %}
+              <td align="center">
+                {% if current_user.can_update: %}
+                <a href="/loans/edit/{{ loan.id }}" data-toggle="tooltip" title="Edit Loan: {{ customer.name }}">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                {% endif %}
+                {% if current_user.can_delete : %}
+                  <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/loans/delete" data-id="{{ loan.id }}" data-name="{{ customer.name }}" title="Delete Loan of Customer: {{ customer.name }}">
+                      <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+              {% endif %}
+              </td>
+              {% endif %}
+              <td>{{ customer.name }}</td>
+              <td>{{ loan.amount }}</td>
+              <td>{{ loan.interest }}</td>
+              <td>{{ loan.total_payable }}</td>
+              <td>{{ loan.payment }}</td>
+              <td>{{ loan.outstanding_balance }}</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}
+

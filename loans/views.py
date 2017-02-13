@@ -8,8 +8,12 @@ loans_blueprint = Blueprint('loans', __name__, static_folder='static', static_ur
 @loans_blueprint.route("/loans")
 @login_required
 def loans():
+    from models import Loan
+    from coinage import db
+    from customers.models import Customer
     try:
-        return render_template('loans.html')
+        query_loans = db.session.query(Loan, Customer).join(Customer).filter(Loan.customer_id == Customer.id).order_by(Loan.date_due)
+        return render_template('loans.html', query_loans=query_loans)
     except TemplateNotFound:
         abort(404)
 
