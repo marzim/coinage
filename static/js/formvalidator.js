@@ -3,45 +3,52 @@ $(document).ready(function(){
   $('#amount').change(function(){
       var nummonths = get_nummonths();
       var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
+
       var amount = $('#amount').val();
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
       if(t_pay){
-        $('#t_payable').val(t_pay);
-        $('#t_payment').change();
+        $('#total_payable').val(t_pay);
+        $('#total_payment').change();
       }
   });
 
   $('#interest').change(function(){
       var nummonths = get_nummonths();
       var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
+
       var amount = $('#amount').val();
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
       if(t_pay){
-        $('#t_payable').val(t_pay);
-        $('#t_payment').change();
+        $('#total_payable').val(t_pay);
+        $('#total_payment').change();
       }
   });
 
   $('#payment').change(function(){
-     var tpayment = parseFloat($('#totalpayment_hv').val());
+     //var tpayment = parseFloat($('#totalpayment_hv').val());
      var payment = parseFloat($('#payment').val());
-     if(tpayment){
-         payment += parseFloat(tpayment);
-     }
+     //if(tpayment){
+     //    payment += parseFloat(tpayment);
+     //}
      if(payment){
-        $('#t_payment').val(payment);
-        $('#t_payment').change();
+        $('#total_payment').val(payment);
+        $('#total_payment').change();
+     }
+     else
+     {
+        $('#total_payment').val(0);
+        $('#total_payment').change();
      }
   });
 
-  $('#t_payment').change(function(){
+  $('#total_payment').change(function(){
       try{
-          var tpayable = parseFloat($('#t_payable').val());
-          var tpayment = parseFloat($('#t_payment').val());
+          var tpayable = parseFloat($('#total_payable').val());
+          var tpayment = parseFloat($('#total_payment').val());
           if(!tpayment){
-            $('#outs_bal').val(tpayable);
+            $('#outstanding_balance').val(tpayable);
           }else if(tpayable && tpayment){
-              $('#outs_bal').val(tpayable - tpayment);
+              $('#outstanding_balance').val(tpayable - tpayment);
           }
       }catch(err){
           alert("error: " + err.message);
@@ -72,7 +79,6 @@ $(document).ready(function(){
      var datedue = new Date($('#date_due').val());
      var daterel = new Date($('#date_rel').val());
      var numbermonth = parseFloat(datedue.getMonth() + 1) - parseFloat(daterel.getMonth() + 1);
-
      if(parseFloat(numbermonth) > 0)
      {
          if(parseFloat(datedue.getDate()) > parseFloat(daterel.getDate())){
@@ -158,7 +164,7 @@ $(document).ready(function(){
         var name = $(this).data('name');
         var url = $(this).data('url');
         $(".modal-body #id").val(id);
-        $(".modal-body #name").text(" '"+ name + "' ");
+        $(".modal-body #name").text(" '" + name + "' ");
         $(".modal-body #url").val(url);
     });
 

@@ -49,7 +49,7 @@
             <div class="col-6 col-sm-6 col-lg-4">
               <label>Date Due</label>
               <div class="input-group date" id="divdate_due" style="width:75%;" data-date-format="mm-dd-yyyy">
-                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" value="" >
+                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" >
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
               </div>
             </div>
@@ -76,6 +76,7 @@
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Total Payment</label>
             {{ render_field(form.total_payment, type="text", class="form-control", style="width:75%;") }}
+
         </div>
       </div>
       <div class="row">
