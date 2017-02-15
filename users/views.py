@@ -7,7 +7,7 @@ from .forms import AddForm, EditForm
 users_blueprint = Blueprint('users', __name__, static_folder='static', static_url_path='/static/users',
                       template_folder='./templates')
 
-@users_blueprint.route("/users", methods=['GET'])   # pragma: no cover
+@users_blueprint.route("/users/", methods=['GET'])   # pragma: no cover
 @login_required
 def users():
     from models import User
@@ -17,7 +17,7 @@ def users():
     except TemplateNotFound:
         abort(404)
 
-@users_blueprint.route("/users/edit/<id>", methods=['GET', 'POST'])   # pragma: no cover)
+@users_blueprint.route("/users/edit/<id>/", methods=['GET', 'POST'])   # pragma: no cover)
 @login_required
 def edituser(id):
     from coinage import db
@@ -58,7 +58,7 @@ def deleteuser():
         return redirect(url_for('users.users'))
 
 @users_blueprint.route(
-    '/users/create', methods=['GET', 'POST'])   # pragma: no cover
+    '/users/create/', methods=['GET', 'POST'])   # pragma: no cover
 def add():
     from coinage import db
     from models import User

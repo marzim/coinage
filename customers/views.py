@@ -7,7 +7,7 @@ from .forms import AddForm, EditCustomerForm
 customers_blueprint = Blueprint('customers', __name__, static_folder='static', static_url_path='/static/customers',
                       template_folder='./templates')
 
-@customers_blueprint.route("/customers", methods=['GET'])
+@customers_blueprint.route("/customers/", methods=['GET'])
 @login_required
 def customers():
     from models import Customer
@@ -17,7 +17,7 @@ def customers():
     except TemplateNotFound:
         abort(404)
 
-@customers_blueprint.route("/customers/new", methods=['GET', 'POST'])
+@customers_blueprint.route("/customers/new/", methods=['GET', 'POST'])
 @login_required
 def newcustomer():
     from coinage import db
@@ -50,7 +50,7 @@ def newcustomer():
     except TemplateNotFound:
         abort(404)
 
-@customers_blueprint.route("/customers/edit/<id>", methods=['GET', 'POST'])
+@customers_blueprint.route("/customers/edit/<id>/", methods=['GET', 'POST'])
 @login_required
 def editcustomer(id):
     from coinage import db

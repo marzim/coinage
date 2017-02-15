@@ -138,7 +138,9 @@ $(document).ready(function(){
         $('#collapseMemberPerks').collapse('show');
     }
 
-    $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+    //$('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+
+    $('ul.nav > li > a[href$="/' + document.location.pathname.split("/")[1] + '"]').parent().addClass('active');
 
     function showDialogMessage(){
         $( "#dialog-message" ).dialog({
@@ -198,16 +200,21 @@ $(document).ready(function(){
         e.preventDefault();
         var sort = getUrlParameter(parameter);
         var order_by = '';
+        var span_class = '';
         if(sort === 'desc'){
             order_by = 'asc'
         }else{
             order_by = 'desc'
+
         }
         window.location.assign('/' + url + '/?' + parameter + '=' + order_by);
+
     }
 
     $('#loans_sortname').click(function(e){
         sort_column(e, 'name','loans');
+        $("span").toggleClass("glyphicon glyphicon-chevron-down");
+
     });
 
     $('#loans_sortamount').click(function(e){

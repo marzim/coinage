@@ -51,7 +51,7 @@ def get_list(order_by):
     return db.session.query(Loan, Customer).join(Customer).filter(Loan.customer_id == Customer.id).filter(
         Loan.is_dormant == 0).order_by(order_by)
 
-@loans_blueprint.route("/loans/new", methods=['POST','GET'])
+@loans_blueprint.route("/loans/new/", methods=['POST','GET'])
 @login_required
 def newloans():
     from coinage import db
@@ -89,9 +89,9 @@ def newloans():
         abort(404)
 
 
-@loans_blueprint.route("/loans/edit")
+@loans_blueprint.route("/loans/edit/<id>/")
 @login_required
-def editloans():
+def editloans(id):
     try:
         return render_template("editloan.html")
     except TemplateNotFound:

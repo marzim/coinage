@@ -17,7 +17,7 @@
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/customers/new" title="Create New Customer">Create</a>
+    <a href="/customers/new/" title="Create New Customer">Create</a>
   </li>
   {% endif %}
 </ul>
@@ -39,7 +39,7 @@
               {% if current_user.can_update or current_user.can_delete: %}
               <td align="center">
                 {% if current_user.can_update: %}
-                    <a href="/customers/edit/{{ customer.id }}" data-toggle="tooltip" title="Edit Customer: {{ customer.first_name }} {{ customer.last_name }}">
+                    <a href="/customers/edit/{{ customer.id }}/" data-toggle="tooltip" title="Edit Customer: {{ customer.first_name }} {{ customer.last_name }}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 {% endif %}

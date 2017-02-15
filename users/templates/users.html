@@ -17,7 +17,7 @@
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/users/create" title="Create New User">Create</a>
+    <a href="/users/create/" title="Create New User">Create</a>
   </li>
   {% endif %}
 </ul>
@@ -37,7 +37,7 @@
               {% if current_user.can_update or current_user.can_delete: %}
               <td align="center">
                {% if current_user.can_update: %}
-                <a href="/users/edit/{{ user.id }}" data-toggle="tooltip" title="Edit User: {{ user.name }}">
+                <a href="/users/edit/{{ user.id }}/" data-toggle="tooltip" title="Edit User: {{ user.name }}">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>
                 {% endif %}

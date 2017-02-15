@@ -11,7 +11,7 @@
     <link href="{{ url_for('static', filename='css/mystyle.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename='css/datepicker.css') }}" rel="stylesheet" media="screen">
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
@@ -55,7 +55,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/formvalidator.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/formmanipulator.js') }}" ></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js" ></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}" ></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/datepicker.js') }}" ></script>

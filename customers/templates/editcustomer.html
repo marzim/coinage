@@ -14,11 +14,11 @@
 <div>
 <ul class="nav nav-tabs actions-nav">
   <li>
-    <a href="/customers" title="List of Customers">List</a>
+    <a href="/customers/" title="List of Customers">List</a>
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/customers/new" title="Create New Customer">Create</a>
+    <a href="/customers/new/" title="Create New Customer">Create</a>
   </li>
   {% endif %}
   {% if  current_user.can_update: %}
