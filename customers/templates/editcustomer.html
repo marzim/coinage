@@ -29,23 +29,29 @@
 </ul>
     <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
+      <label for="first_name">First Name</label>
       <p>
-        {{ form.first_name(type="text", class="form-control", autofocus="true", placeholder="First Name") }}
+        {{ form.first_name(type="text", class="form-control", autofocus="true") }}
       </p>
+      <label for="last_name">Last Name</label>
       <p>
-        {{ form.last_name(type="text", class="form-control", placeholder="Last Name") }}
+        {{ form.last_name(type="text", class="form-control") }}
       </p>
+      <label for="number_shares">Number of Shares</label>
       <p>
-        {{ render_field(form.number_shares, type="text", class="form-control", placeholder="Number of Shares") }}
+        {{ render_field(form.number_shares, type="text", class="form-control") }}
       </p>
+      <label for="email">Email Address</label>
       <p>
-      {{ render_field(form.email, type="text", class="form-control", placeholder="Email Address") }}
+      {{ render_field(form.email, type="text", class="form-control") }}
       </p>
+      <label for="address">Address</label>
       <p>
-        {{ render_field(form.address, type="text", class="form-control", placeholder="Address") }}
+        {{ render_field(form.address, type="text", class="form-control") }}
       </p>
+      <label for="mobile_phone">Cellular Number</label>
       <p>
-        {{ render_field(form.mobile_phone, type="text", class="form-control", placeholder="Cellular Number") }}
+        {{ render_field(form.mobile_phone, type="text", class="form-control") }}
       </p>
 
       <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>

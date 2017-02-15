@@ -24,17 +24,21 @@
 </ul>
     <form class="form-signin col-md-6" role="form" method="post" action="">
       {{ form.csrf_token }}
+      <label for="username">User Name</label>
       <p>
-        {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
+        {{ render_field(form.username, type="text", class="form-control", autofocus="true") }}
       </p>
+        <label for="email">Email Address</label>
       <p>
-        {{ render_field(form.email, type="text", class="form-control", placeholder="email") }}
+        {{ render_field(form.email, type="text", class="form-control") }}
       </p>
+        <label for="password">Password</label>
       <p>
-        {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
+        {{ render_field(form.password, type="password", class="form-control") }}
       </p>
+        <label for="confirm">Re-type password</label>
       <p>
-        {{ render_field(form.confirm, type="password", class="form-control", placeholder="confirm") }}
+        {{ render_field(form.confirm, type="password", class="form-control") }}
       </p>
      <p>
       <div class="panel panel-default">
