@@ -208,13 +208,10 @@ $(document).ready(function(){
 
         }
         window.location.assign('/' + url + '/?' + parameter + '=' + order_by);
-
     }
 
     $('#loans_sortname').click(function(e){
         sort_column(e, 'name','loans');
-        $("span").toggleClass("glyphicon glyphicon-chevron-down");
-
     });
 
     $('#loans_sortamount').click(function(e){
