@@ -178,5 +178,10 @@ $(document).ready(function(){
         });
         location.reload(true);
     });
+
+    $('#sortname').click(function(){
+        var url = document.getElementById('sortname');
+        alert(url);
+    });
 });
 

@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% from "formhelpers.html" import render_field %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Register{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -11,20 +11,26 @@
     {% block guestcontent %}
         <form class="form-signin" role="form" method="post" action="">
           {{ form.csrf_token }}
-            <h2 class="form-sign-heading">{{ instruction }}</h2>
+            <h2 class="form-sign-heading">Register</h2>
+          <div class="well">
           <p>
-            {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
+            {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="User Name") }}
           </p>
           <p>
-            {{ render_field(form.email, type="text", class="form-control", placeholder="email") }}
+            {{ render_field(form.email, type="text", class="form-control", placeholder="Email Address") }}
           </p>
           <p>
-            {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
+            {{ render_field(form.password, type="password", class="form-control", placeholder="Password") }}
           </p>
           <p>
-            {{ render_field(form.confirm, type="password", class="form-control", placeholder="confirm") }}
+            {{ render_field(form.confirm, type="password", class="form-control", placeholder="Re-type password") }}
           </p>
           <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+            <br />
+            <p>
+              Already signed up? Please <a href="/login">login.</a>
+            </p>
+            </div>
         </form>
     {% endblock %}
 {% endblock %}

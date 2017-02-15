@@ -13,13 +13,19 @@
         <form class="form-signin" role="form" method="post" action="">
           {{ form.csrf_token }}
             <h2 class="form-sign-heading">Please login</h2>
-          <p>
-            {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
-          </p>
-          <p>
-            {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
-          </p>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <div class="well">
+              <p>
+                {{ render_field(form.username, type="text", class="form-control", autofocus="true", placeholder="username") }}
+              </p>
+              <p>
+                {{ render_field(form.password, type="password", class="form-control", placeholder="password") }}
+              </p>
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <br />
+              <p>
+                  Not yet signed up? Please <a href="/register">register for an account.</a>
+              </p>
+          </div>
         </form>
     </div>
     {% endblock %}

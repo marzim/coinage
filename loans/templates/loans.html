@@ -27,7 +27,7 @@
         {% if  current_user.can_update or current_user.can_delete: %}
           <th class="col-md-1"></th>
         {% endif %}
-          <th class="column-header">Name</th>
+          <th class="column-header"><a id="sortname" href="/loans/?name=asc">Name</a></th>
           <th class="column-header">Amount</th>
           <th class="column-header">Interest</th>
           <th class="column-header">Total Payable</th>
