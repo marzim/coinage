@@ -1,5 +1,20 @@
 $(document).ready(function(){
 
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
   $('#amount').change(function(){
       var nummonths = get_nummonths();
       var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
@@ -179,9 +194,40 @@ $(document).ready(function(){
         location.reload(true);
     });
 
-    $('#sortname').click(function(){
-        var url = document.getElementById('sortname');
-        alert(url);
+    var sort_column = function sort_column(e, parameter, url) {
+        e.preventDefault();
+        var sort = getUrlParameter(parameter);
+        var order_by = '';
+        if(sort === 'desc'){
+            order_by = 'asc'
+        }else{
+            order_by = 'desc'
+        }
+        window.location.assign('/' + url + '/?' + parameter + '=' + order_by);
+    }
+
+    $('#loans_sortname').click(function(e){
+        sort_column(e, 'name','loans');
+    });
+
+    $('#loans_sortamount').click(function(e){
+        sort_column(e, 'amount','loans');
+    });
+
+    $('#loans_sortinterest').click(function(e){
+        sort_column(e, 'interest','loans');
+    });
+
+    $('#loans_sorttpayable').click(function(e){
+        sort_column(e, 'total_payable','loans');
+    });
+
+    $('#loans_sorttpayment').click(function(e){
+        sort_column(e, 'total_payment','loans');
+    });
+
+    $('#loans_sortoutbal').click(function(e){
+        sort_column(e, 'outstanding_balance','loans');
     });
 });
 

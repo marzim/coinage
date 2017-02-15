@@ -27,12 +27,12 @@
         {% if  current_user.can_update or current_user.can_delete: %}
           <th class="col-md-1"></th>
         {% endif %}
-          <th class="column-header"><a id="sortname" href="/loans/?name=asc">Name</a></th>
-          <th class="column-header">Amount</th>
-          <th class="column-header">Interest</th>
-          <th class="column-header">Total Payable</th>
-          <th class="column-header">Total Payment</th>
-          <th class="column-header">Outstanding Balance</th>
+          <th class="column-header"><a id="loans_sortname" href="/loans/?name=desc">Name</a></th>
+          <th class="column-header"><a id="loans_sortamount" href="/loans/?amount=desc">Amount</a></th>
+          <th class="column-header"><a id="loans_sortinterest" href="/loans/?interest=desc">Interest</a></th>
+          <th class="column-header"><a id="loans_sorttpayable" href="/loans/?total_payable=desc">Total Payable</a></th>
+          <th class="column-header"><a id="loans_sorttpayment" href="/loans/?total_payment=desc">Total Payment</a></th>
+          <th class="column-header"><a id="loans_sortoutbal" href="/loans/?outstanding_balance=desc">Outstanding Balance</a></th>
       </tr>
     </thead>
     <tbody>
