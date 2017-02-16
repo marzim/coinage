@@ -22,7 +22,7 @@ last_names = [ 'ting', 'ting2', 'ting3', 'ting4', 'ting5', 'ting6', 'ting7']
 
 for i in range(len(first_names)):
     customer = Customer(first_names[i], last_names[i], i + 1, first_names[i].lower() + "@gmail.com",
-                        first_names[i].lower() + " address", "1234567")
+                        first_names[i].lower() + " address", "1234567", 0)
     db.session.add(customer)
     loan = Loan(i+1, 1000, 3, 100, 1030, 100, 930, date.today(), date.today(), date.today(), 0)
     db.session.add(loan)

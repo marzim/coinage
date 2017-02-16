@@ -12,7 +12,7 @@ customers_blueprint = Blueprint('customers', __name__, static_folder='static', s
 def customers():
     from models import Customer
     try:
-        query_customers = Customer.query.order_by(Customer.first_name)
+        query_customers = Customer.query.filter(Customer.is_dormant == 0).order_by(Customer.first_name)
         return render_template('customers.html', query_customers=query_customers)
     except TemplateNotFound:
         abort(404)
@@ -38,7 +38,8 @@ def newcustomer():
                     number_shares=form.number_shares.data,
                     email=form.email.data.strip(),
                     address=form.address.data.strip(),
-                    mobile_phone=form.mobile_phone.data.strip()
+                    mobile_phone=form.mobile_phone.data.strip(),
+                    is_dormant=0
                 )
                 db.session.add(customer)
                 db.session.commit()
@@ -59,7 +60,10 @@ def editcustomer(id):
         if not current_user.can_update:
             return redirect(url_for('customers.customers'))
         form = EditCustomerForm(request.form)
-        customer = Customer.query.filter_by(id=id).first()
+        customer = Customer.query.filter(Customer.id == id).filter(Customer.is_dormant == 0).first()
+        if customer is None:
+            flash(u'Cannot find customer.', 'danger')
+            return redirect(url_for('customers.customers'))
 
         if request.method == 'POST':
             current_name = customer.name
@@ -67,7 +71,7 @@ def editcustomer(id):
             name_exist = None
             if current_name != new_name:
                 name_exist = Customer.query.filter_by(name=request.form['first_name'].strip() + ' ' + request.form['last_name'].strip()).first()
-            if form.validate_on_submit() and name_exist is None:
+            if form.validate_on_submit() and name_exist is None and customer is not None:
                 customer.first_name = request.form['first_name']
                 customer.last_name = request.form['last_name']
                 customer.number_shares = int(request.form['number_shares'])
@@ -75,7 +79,7 @@ def editcustomer(id):
                 customer.address = request.form['address']
                 customer.mobile_phone = request.form['mobile_phone']
                 db.session.commit()
-                flash(u'Record successfully saved.', 'success')
+                #flash(u'Record successfully saved.', 'success')
                 return redirect(url_for('customers.customers'))
             elif not name_exist is None:
                 flash('Name ' + new_name + ' is already taken. Please choose another name.','danger')
@@ -90,7 +94,7 @@ def editcustomer(id):
     except TemplateNotFound:
         abort(404)
 
-@customers_blueprint.route("/customers/delete", methods=['POST'])   # pragma: no cover)
+@customers_blueprint.route("/customers/delete/", methods=['POST'])   # pragma: no cover)
 @login_required
 def deletecustomer():
     from coinage import db
@@ -98,9 +102,12 @@ def deletecustomer():
     if not current_user.can_delete:
         return redirect(url_for('customers.customers'))
     id = request.form['id']
-    customer = Customer.query.filter_by(id=id).first()
-    if not customer is None:
-        db.session.delete(customer)
+    customer = Customer.query.filter(Customer.id == id).filter(Customer.is_dormant == 0).first()
+    if customer is None:
+        flash(u'Cannot find customer.', 'danger')
+        return redirect(url_for('customers.customers'))
+    else:
+        customer.is_dormant = 1
         db.session.commit()
         flash(u'Record was successfully deleted.', 'success')
         return redirect(url_for('customers.customers'))

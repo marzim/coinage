@@ -25,6 +25,10 @@ def edituser(id):
     if not current_user.can_update:
         return redirect(url_for('users.users'))
     user = User.query.filter_by(id=id).first()
+    if user is None:
+        flash(u'Cannot find user.', 'danger')
+        return redirect(url_for('users.users'))
+
     form = EditForm()
     form.username.data = user.name
     form.email.data = user.email

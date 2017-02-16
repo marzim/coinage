@@ -44,7 +44,7 @@
                     </a>
                 {% endif %}
                 {% if current_user.can_delete : %}
-                    <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/customers/delete" data-id="{{ customer.id }}" data-name="{{ customer.first_name }} {{ customer.last_name }}" title="Delete Customer: {{ customer.first_name }} {{ customer.last_name }}">
+                    <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/customers/delete/" data-id="{{ customer.id }}" data-name="{{ customer.first_name }} {{ customer.last_name }}" title="Delete Customer: {{ customer.first_name }} {{ customer.last_name }}">
                      <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 {% endif %}
