@@ -5,54 +5,54 @@
 {% endblock %}
 {% block content %}
    {% if not current_user.is_authenticated %}
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/register">Sign up</a></li>
-        <li><a href="#">Gallery</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;Log in</a></li>
+        <li><a href="/register"><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;&nbsp;&nbsp;Sign up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;&nbsp;Gallery</a></li>
    {% endif %}
    {% if current_user.is_authenticated %}
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Savings
+                <span class="glyphicon glyphicon-gift"></span>&nbsp;&nbsp;Savings
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="/summary">Summary</a>
+                    <a href="/summary"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;Summary</a>
                 </li>
                 <li>
-                    <a href="/contributions">Contributions</a>
+                    <a href="/contributions"><span class="glyphicon glyphicon-piggy-bank"></span>&nbsp;&nbsp;&nbsp;Contributions</a>
                 </li>
                 <!--<li>
                     <a href="/savings/contchecklist">Contribution Checklist</a>
                 </li>-->
                 <li>
-                    <a href="/loans">Loans</a>
+                    <a href="/loans"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;&nbsp;Loans</a>
                 </li>
                 <li>
-                    <a href="/guidelines">Guidelines</a>
+                    <a href="/guidelines"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;&nbsp;Guidelines</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="/interestearned">Interest Earned</a>
+                    <a href="/interestearned"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;Interest Earned</a>
                 </li>
                 <li>
-                    <a href="/customers">Customers</a>
+                    <a href="/customers"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;Customers</a>
                 </li>
             </ul>
         </li>
-        <li><a href="/users">Users</a></li>
+        <li><a href="/users"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Users</a></li>
         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                {{ current_user.name }}
+                <span class="glyphicon glyphicon-king"></span>&nbsp;&nbsp;&nbsp;{{ current_user.name }}
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="/editpassword">Settings
+                    <a href="/settings/password/"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Settings
                     </a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="/logout">Log out</a>
+                    <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;&nbsp;Log out</a>
                 </li>
             </ul>
         </li>
@@ -70,7 +70,7 @@
                         <li><a href="/contributions"><span class="glyphicon glyphicon-piggy-bank"></span>&nbsp;&nbsp;&nbsp;Contributions</a></li>
                         <!--<li><a href="/contributionschecklist"><span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;&nbsp;Contribution Checklist</a></li>-->
                         <li><a href="/loans"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;&nbsp;Loans</a></li>
-                        <li><a href="/interestearned"><span class="glyphicon glyphicon-circle-arrow-up"></span>&nbsp;&nbsp;&nbsp;Interest Earned</a></li>
+                        <li><a href="/interestearned"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;Interest Earned</a></li>
                         <li><a href="/customers"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;&nbsp;Customers</a></li>
                         <li><a href="/users"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Users</a></li>
                         <li><a href="/notes"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;&nbsp;Notes</a></li>

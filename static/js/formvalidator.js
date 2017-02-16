@@ -205,7 +205,6 @@ $(document).ready(function(){
             order_by = 'asc'
         }else{
             order_by = 'desc'
-
         }
         window.location.assign('/' + url + '/?' + parameter + '=' + order_by);
     }

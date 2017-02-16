@@ -63,7 +63,7 @@ def register():
     return render_template('register.html', form=form)
 
 @accounts_blueprint.route(
-    '/editpassword/', methods=['GET', 'POST'])   # pragma: no cover
+    '/settings/password/', methods=['GET', 'POST'])   # pragma: no cover
 @login_required
 def editpassword():
     from coinage import bcrypt
@@ -82,11 +82,11 @@ def editpassword():
                 flash(u'Successfully changed password.', 'success')
                 flash(u'Please log out and log in using your new password.', 'info')
             else:
-                form.password.errors.append('Password does not match with the current password.')
+                form.password.errors.append('Password provided does not match with the current password.')
     return render_template('editpassword.html', form=form, error=error)
 
 @accounts_blueprint.route(
-    '/editemail/', methods=['GET', 'POST'])   # pragma: no cover
+    '/settings/email/', methods=['GET', 'POST'])   # pragma: no cover
 @login_required
 def editemail():
     from coinage import db
