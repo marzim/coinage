@@ -79,7 +79,7 @@ def editcustomer(id):
                 customer.address = request.form['address']
                 customer.mobile_phone = request.form['mobile_phone']
                 db.session.commit()
-                #flash(u'Record successfully saved.', 'success')
+                flash(u'Record successfully saved.', 'success')
                 return redirect(url_for('customers.customers'))
             elif not name_exist is None:
                 flash('Name ' + new_name + ' is already taken. Please choose another name.','danger')
