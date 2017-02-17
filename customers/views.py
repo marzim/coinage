@@ -26,11 +26,10 @@ def newcustomer():
         if not current_user.can_create:
             return redirect(url_for('customers.customers'))
         form = AddForm()
-        error = None
         if request.method == 'GET':
             form.number_shares.data = 0
         if form.validate_on_submit():
-            customer = Customer.query.filter_by(name=form.first_name.data.strip()+ ' ' + form.last_name.data.strip()).first()
+            customer = Customer.query.filter(Customer.name==form.first_name.data.strip()+ ' ' + form.last_name.data.strip()).filter(Customer.is_dormant == 0).first()
             if customer is None:
                 customer = Customer(
                     first_name=form.first_name.data.strip(),
@@ -47,7 +46,7 @@ def newcustomer():
                 return redirect(url_for('customers.customers'))
             else:
                 flash('Name ' + form.first_name.data.strip()+ ' ' + form.last_name.data.strip() + ' is already taken. Please choose another name.', 'danger')
-        return render_template('newcustomer.html', form=form, error=error)
+        return render_template('newcustomer.html', form=form)
     except TemplateNotFound:
         abort(404)
 
@@ -70,10 +69,11 @@ def editcustomer(id):
             new_name = request.form['first_name'] + ' ' + request.form['last_name']
             name_exist = None
             if current_name != new_name:
-                name_exist = Customer.query.filter_by(name=request.form['first_name'].strip() + ' ' + request.form['last_name'].strip()).first()
-            if form.validate_on_submit() and name_exist is None and customer is not None:
+                name_exist = Customer.query.filter(Customer.name==request.form['first_name'].strip() + ' ' + request.form['last_name'].strip()).filter(Customer.is_dormant == 0).first()
+            if form.validate_on_submit() and name_exist is None:
                 customer.first_name = request.form['first_name']
                 customer.last_name = request.form['last_name']
+                customer.name = customer.first_name + ' ' + customer.last_name
                 customer.number_shares = int(request.form['number_shares'])
                 customer.email = request.form['email']
                 customer.address = request.form['address']
