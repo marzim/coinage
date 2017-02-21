@@ -4,7 +4,6 @@ class Loan(db.Model):
     __tablename__ = "loans"
 
     id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, db.ForeignKey("customers.id"))
     amount = db.Column(db.Float, unique=False)
     interest = db.Column(db.Float, unique=False)
     payment = db.Column(db.Float, unique=False)
@@ -14,21 +13,19 @@ class Loan(db.Model):
     fully_paid_on = db.Column(db.String(80))
     date_release = db.Column(db.String(80))
     date_due = db.Column(db.String(80))
-    is_dormant = db.Column(db.Boolean)
-    customer = db.relationship('Customer', backref='customers')
+    customer_id = db.Column(db.Integer, db.ForeignKey("customers.id"))
 
-    def __init__(self, customer_id=0, amount=0, interest=0, payment=0, total_payable=0, total_payment=0, outstanding_balance=0, fully_paid_on=None, date_release=None, date_due=None, is_dormant=0):
-        self.customer_id = customer_id
-        self.amount = amount
-        self.interest = interest
-        self.payment = payment
-        self.total_payable = total_payable
-        self.total_payment = total_payment
-        self.outstanding_balance = outstanding_balance
-        self.fully_paid_on = fully_paid_on
-        self.date_release = date_release
-        self.date_due = date_due
-        self.is_dormant = is_dormant
+    # def __init__(self, customer_id=0, amount=0, interest=0, payment=0, total_payable=0, total_payment=0, outstanding_balance=0, fully_paid_on=None, date_release=None, date_due=None):
+    #     self.customer_id = customer_id
+    #     self.amount = amount
+    #     self.interest = interest
+    #     self.payment = payment
+    #     self.total_payable = total_payable
+    #     self.total_payment = total_payment
+    #     self.outstanding_balance = outstanding_balance
+    #     self.fully_paid_on = fully_paid_on
+    #     self.date_release = date_release
+    #     self.date_due = date_due
 
 class Interest(db.Model):
     __tablename__ = "interest"

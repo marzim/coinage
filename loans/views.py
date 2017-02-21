@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for, flash
 from jinja2 import TemplateNotFound
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 
 from .forms import AddForm, EditForm
@@ -47,9 +47,7 @@ def get_list_order_by(field, sort_by):
 def get_list(order_by):
     from models import Loan
     from coinage import db
-    from customers.models import Customer
-    return db.session.query(Loan, Customer).join(Customer).filter(Loan.customer_id == Customer.id).filter(
-        Loan.is_dormant == 0).order_by(order_by)
+    return db.session.query(Loan).join(Loan.customer).order_by(order_by).all()
 
 @loans_blueprint.route("/loans/new/", methods=['POST','GET'])
 @login_required
@@ -58,10 +56,12 @@ def newloans():
     from customers.models import Customer
     from models import Interest, Loan
     try:
+        if not current_user.can_create:
+            return redirect(url_for('loans.loans'))
         form = AddForm(request.form)
-        customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
+        _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
         interest = Interest.query.order_by(Interest.value)
-        form.customer_name.choices = [(g.id, g.name) for g in customer]
+        form.customer_name.choices = [(g.id, g.name) for g in _customer]
         form.interest.choices = [(g.value, g.name) for g in interest]
         if request.method == 'GET':
             form.payment.data = 0
@@ -78,7 +78,6 @@ def newloans():
                 loan.total_payment = form.total_payment.data
                 loan.outstanding_balance = form.outstanding_balance.data
                 loan.fully_paid_on = form.fully_paid_on.data
-                loan.is_dormant = 0;
                 db.session.add(loan)
                 db.session.commit()
                 flash(u'Record was successfully created.', 'success')
@@ -89,12 +88,66 @@ def newloans():
         abort(404)
 
 
-@loans_blueprint.route("/loans/edit/<id>/")
+@loans_blueprint.route("/loans/edit/<id>/", methods=['GET', 'POST'])
 @login_required
 def editloans(id):
-    try:
-        return render_template("editloan.html")
-    except TemplateNotFound:
-        abort(404)
+    from coinage import db
+    from models import Loan, Interest
+    from customers.models import Customer
 
+    if not current_user.can_update:
+        return redirect(url_for('loans.loans'))
+    form = EditForm(request.form)
+    loan = Loan.query.filter_by(id=id).first()
+    if loan is None:
+        flash(u'Cannot find loan.', 'danger')
+        return redirect(url_for('loans.loans'))
+    _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
+    interest = Interest.query.order_by(Interest.value)
+    form.customer_name.choices = [(g.id, g.name) for g in _customer]
+    form.interest.choices = [(g.value, g.name) for g in interest]
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            loan.customer_id = form.customer_name.data
+            loan.date_release = form.date_release.data
+            loan.amount = form.amount.data
+            loan.date_due = form.date_due.data
+            loan.interest = form.interest.data
+            loan.total_payable = form.total_payable.data
+            loan.payment = form.payment.data
+            loan.total_payment = form.total_payment.data
+            loan.outstanding_balance = form.outstanding_balance.data
+            loan.fully_paid_on = form.fully_paid_on.data
+            db.session.commit()
+            flash(u'Record successfully saved.', 'success')
+            return redirect(url_for('loans.loans'))
+    else:
+        form.customer_name.data = loan.customer_id
+        form.date_release.data = loan.date_release
+        form.amount.data = loan.amount
+        form.date_due.data = loan.date_due
+        form.interest.data = loan.interest
+        form.total_payable.data = loan.total_payable
+        form.payment.data = loan.payment
+        form.total_payment.data = loan.total_payment
+        form.outstanding_balance.data = loan.outstanding_balance
+        form.fully_paid_on.data = loan.fully_paid_on
+    return render_template("editloan.html", form=form)
 
+@loans_blueprint.route("/loans/delete/", methods=['POST'])   # pragma: no cover)
+@login_required
+def deleteloan():
+    from coinage import db
+    from models import Loan
+    if not current_user.can_delete:
+        return redirect(url_for('loans.loans'))
+    id = request.form['id']
+    loan = Loan.query.filter_by(id=id).first()
+    if loan is None:
+        flash(u'Cannot find loan.', 'danger')
+        return redirect(url_for('loans.loans'))
+    else:
+        db.session.delete(loan)
+        db.session.commit()
+        flash(u'Record was successfully deleted.', 'success')
+        return redirect(url_for('loans.loans'))

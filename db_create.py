@@ -15,16 +15,16 @@ db.drop_all()
 # create the database and the db table
 db.create_all()
 #insert
-user = User(1, 1, 1, "guest","marzim@gmail.com", "jasper", 0)
+user = User(1, 1, 1, "guest","marzim@gmail.com", "jasper")
 db.session.add(user)
 first_names = [ 'test', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7']
 last_names = [ 'ting', 'ting2', 'ting3', 'ting4', 'ting5', 'ting6', 'ting7']
 
 for i in range(len(first_names)):
-    customer = Customer(first_names[i], last_names[i], i + 1, first_names[i].lower() + "@gmail.com",
-                        first_names[i].lower() + " address", "1234567", 0)
-    db.session.add(customer)
-    loan = Loan(i+1, 1000, 3, 100, 1030, 100, 930, date.today(), date.today(), date.today(), 0)
+    c = Customer(first_names[i], last_names[i], i + 1, first_names[i].lower() + "@gmail.com",
+                        first_names[i].lower() + " address", "1234567")
+    db.session.add(c)
+    loan = Loan(customer=c, amount=1000, interest=3, payment=100, total_payable=1030, total_payment=100, outstanding_balance=930, fully_paid_on=date.today(), date_release=date.today(), date_due=date.today())
     db.session.add(loan)
 
 

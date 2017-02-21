@@ -12,7 +12,7 @@ users_blueprint = Blueprint('users', __name__, static_folder='static', static_ur
 def users():
     from models import User
     try:
-        query_users = User.query.filter(User.name != current_user.name).filter(User.is_dormant == 0).order_by(User.name)
+        query_users = User.query.filter(User.name != current_user.name).order_by(User.name)
         return render_template('users.html', query_users=query_users)
     except TemplateNotFound:
         abort(404)
@@ -24,7 +24,7 @@ def edituser(id):
     from models import User
     if not current_user.can_update:
         return redirect(url_for('users.users'))
-    user = User.query.filter(User.id==id).filter(User.is_dormant==0).first()
+    user = User.query.filter_by(id=id).first()
     if user is None:
         flash(u'Cannot find user.', 'danger')
         return redirect(url_for('users.users'))
@@ -54,9 +54,9 @@ def deleteuser():
     if not current_user.can_delete:
         return redirect(url_for('users.users'))
     id = request.form['id']
-    user = User.query.filter(User.id==id).filter(User.is_dormant==0).first()
+    user = User.query.filter_by(id=id).first()
     if not user is None:
-        user.is_dormant = 1
+        db.session.delete(user)
         db.session.commit()
         flash(u'Record was successfully deleted.', 'success')
         return redirect(url_for('users.users'))
@@ -74,7 +74,7 @@ def add():
     form.can_update.data = 0
     error = None
     if form.validate_on_submit():
-        user = User.query.filter(User.name==form.username.data.strip()).filter(User.is_dormant==0).first()
+        user = User.query.filter_by(name=form.username.data.strip()).first()
         if user is None:
             user = User(
                 name=form.username.data.strip(),

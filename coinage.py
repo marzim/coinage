@@ -4,11 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.DevelopmentConfig')
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 299
 app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
 db = SQLAlchemy(app)
@@ -17,8 +18,8 @@ from home.views import home_blueprint
 from contributions.views import contributions_blueprint
 from summary.views import summary_blueprint
 from loans.views import loans_blueprint
-from interestearned.views import interestearned_blueprint
 from customers.views import customers_blueprint
+from interestearned.views import interestearned_blueprint
 from notes.views import notes_blueprint
 from guidelines.views import guidelines_blueprint
 from accounts.views import accounts_blueprint
@@ -29,8 +30,8 @@ app.register_blueprint(contributions_blueprint)
 app.register_blueprint(home_blueprint)
 app.register_blueprint(summary_blueprint)
 app.register_blueprint(loans_blueprint)
-app.register_blueprint(interestearned_blueprint)
 app.register_blueprint(customers_blueprint)
+app.register_blueprint(interestearned_blueprint)
 app.register_blueprint(notes_blueprint)
 app.register_blueprint(accounts_blueprint)
 app.register_blueprint(users_blueprint)

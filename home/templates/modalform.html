@@ -31,11 +31,12 @@
         	</div>
         	<form id="deleteForm" method="POST">
             	<div class="modal-body" align="center">
-            	    <h4><label for="name">Are you sure want to delete this record?</label></h4>
+					<h4><label for="name">Are you sure want to delete this record?</label></h4>
             	    <input type="hidden" name="id" id="id" value="" />
                     <input type="hidden" name="url" id="url" value="" />
-                    <br>
+
                     <h4><label name="name" id="name" text=""/></h4>
+					<label name="instructions" id="instructions" text="" style="color:red"/>
             	</div>
             	<div align="center">
             		<button data-dismiss="modal" aria-hidden="true" class="btn btn-primary btn-lg">No</button>

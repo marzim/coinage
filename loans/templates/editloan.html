@@ -14,11 +14,11 @@
 <div>
 <ul class="nav nav-tabs actions-nav">
   <li>
-    <a href="/users" title="List of Loans">List</a>
+    <a href="/loans/" title="List of Loans">List</a>
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/users/create" title="Create New Loan">Create</a>
+    <a href="/loans/new/" title="Create New Loan">Create</a>
   </li>
   {% endif %}
   {% if  current_user.can_update: %}
@@ -27,13 +27,82 @@
   </li>
     {% endif %}
 </ul>
-    <form class="form-signin form-horizontal col-md-6" role="form" method="post" action="">
+    <form class="well" role="form" method="post" action="">
       {{ form.csrf_token }}
-      <p>
-        {{ form.name(type="text", autofocus="True", class="form-control") }}
-      </p>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+          <label>Customer Name</label>
+          <p>
+            {{ render_field(form.customer_name, type="text", autofocus="True", class="form-control") }}
+          </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+          <label>Date Release</label>
+          <div class="input-group date" id="dp3" style="width:75%;" data-date-format="mm-dd-yyyy">
+            <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel" value="" >
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Amount</label>
+            <p>
+              {{ render_field(form.amount, type="text", class="form-control") }}
+            </p>
+          </div>
+            <div class="col-6 col-sm-6 col-lg-4">
+              <label>Date Due</label>
+              <div class="input-group date" id="divdate_due" style="width:75%;" data-date-format="mm-dd-yyyy">
+                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" >
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+        </div>
+      <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Interest per Month</label>
+            <p>
+              {{ render_field(form.interest, type="text", class="form-control", style="width:75%;") }}
+            </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payable</label>
+            {{ render_field(form.total_payable, type="text", class="form-control", style="width:75%;") }}
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Payment</label>
+            <p>
+              {{ form.payment(type="text", class="form-control", style="width:75%;") }}
+            </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payment</label>
+            {{ render_field(form.total_payment, type="text", class="form-control", style="width:75%;") }}
 
-    <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+          <label>Fully Paid On</label>
+          <div class="input-group date" id="divdate_fullypaid" style="width:75%;" data-date-format="mm-dd-yyyy">
+            <input class="form-control input-sm" type="text" readonly="" name="date_fullypaid" id="date_fullypaid" value="" >
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Outstanding Balance</label>
+            {{ render_field(form.outstanding_balance, type="text", class="form-control", style="width:75%;") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+        <br />
+        <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
+        </div>
+      </div>
     </form>
 {% endblock %}
 </div>

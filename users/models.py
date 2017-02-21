@@ -11,19 +11,17 @@ class User(db.Model):
     can_create = db.Column(db.Integer)
     can_update = db.Column(db.Integer)
     can_delete = db.Column(db.Integer)
-    is_dormant = db.Column(db.Boolean)
 
-    def __init__(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None, is_dormant=0):
-        self.set_property(can_create, can_update, can_delete, name, email, password, is_dormant)
+    def __init__(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None):
+        self.set_property(can_create, can_update, can_delete, name, email, password)
 
-    def set_property(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None, is_dormant=0):
+    def set_property(self, can_create=0, can_update=0, can_delete=0, name=None, email=None, password=None):
         self.name = name
         self.email = email
         self.password = bcrypt.generate_password_hash(password)
         self.can_create = can_create
         self.can_update = can_update
         self.can_delete = can_delete
-        self.is_dormant = is_dormant
 
     def is_authenticated(self):
         return True

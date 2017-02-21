@@ -13,7 +13,7 @@
 {% block membercontent %}
 <ul class="nav nav-tabs actions-nav">
   <li class="active">
-    <a href="#">List ({{ query_loans.count() }})</a>
+    <a href="#">List ({{ query_loans|length }})</a>
   </li>
   {% if  current_user.can_create: %}
   <li>
@@ -36,23 +36,23 @@
       </tr>
     </thead>
     <tbody>
-      {% for loan, customer in query_loans: %}
+      {% for loan in query_loans: %}
           <tr>
               {% if current_user.can_update or current_user.can_delete : %}
               <td align="center">
                 {% if current_user.can_update: %}
-                <a href="/loans/edit/{{ loan.id }}" data-toggle="tooltip" title="Edit Loan: {{ customer.name }}">
+                <a href="/loans/edit/{{ loan.id }}" data-toggle="tooltip" title="Edit Loan: {{ loan.customer.name }}">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>
                 {% endif %}
                 {% if current_user.can_delete : %}
-                  <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/loans/delete" data-id="{{ loan.id }}" data-name="{{ customer.name }}" title="Delete Loan of Customer: {{ customer.name }}">
+                  <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/loans/delete/" data-id="{{ loan.id }}" data-name="{{ loan.customer.name }}" data-amount="{{ loan.amount }}" title="Delete Loan of Customer: {{ loan.customer.name }}">
                       <span class="glyphicon glyphicon-trash"></span>
                   </a>
               {% endif %}
               </td>
               {% endif %}
-              <td>{{ customer.name }}</td>
+              <td>{{ loan.customer.name }}</td>
               <td>{{ loan.amount }}</td>
               <td>{{ loan.interest }}</td>
               <td>{{ loan.total_payable }}</td>

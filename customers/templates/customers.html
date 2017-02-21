@@ -39,18 +39,18 @@
               {% if current_user.can_update or current_user.can_delete: %}
               <td align="center">
                 {% if current_user.can_update: %}
-                    <a href="/customers/edit/{{ customer.id }}/" data-toggle="tooltip" title="Edit Customer: {{ customer.first_name }} {{ customer.last_name }}">
+                    <a href="/customers/edit/{{ customer.id }}/" data-toggle="tooltip" title="Edit Customer: {{ customer.name }}">
                       <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 {% endif %}
                 {% if current_user.can_delete : %}
-                    <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/customers/delete/" data-id="{{ customer.id }}" data-name="{{ customer.first_name }} {{ customer.last_name }}" title="Delete Customer: {{ customer.first_name }} {{ customer.last_name }}">
+                    <a href="#ConfirmDeleteModal" role="button" data-toggle="modal" class='confirmDelete' data-url="/customers/delete/" data-id="{{ customer.id }}" data-name="{{ customer.name }}" title="Delete Customer: {{ customer.name }}">
                      <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 {% endif %}
               </td>
               {% endif %}
-              <td>{{ customer.first_name }}  {{ customer.last_name }}</td>
+              <td>{{ customer }}</td>
               <td>{{ customer.number_shares }}</td>
               <td>{{ customer.email }}</td>
               <td>{{ customer.mobile_phone }}</td>
