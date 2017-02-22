@@ -16,9 +16,12 @@ def loans():
         sort = request.query_string.split('=')
         if len(sort) == 2:
             query_loans = sorting(sort[0], sort[1])
+            sort_order = sort[1]
         else:
             query_loans = get_list_order_by(Customer.name, 'asc')
-        return render_template('loans.html', query_loans=query_loans)
+            sort_order = None
+
+        return render_template('loans.html', query_loans=query_loans, sort_order=sort_order)
     except TemplateNotFound:
         abort(404)
 

@@ -14,7 +14,7 @@
 <div>
 <ul class="nav nav-tabs actions-nav">
   <li>
-    <a href="/loans/" title="List of Loans">List</a>
+    <a href="{{ url_for('loans.loans') }}" title="List of Loans">List</a>
   </li>
   {% if  current_user.can_create: %}
   <li class="active">

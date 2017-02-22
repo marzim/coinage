@@ -17,7 +17,7 @@
   </li>
   {% if  current_user.can_create: %}
   <li>
-    <a href="/loans/new/" title="Create New Loan">Create</a>
+    <a href="{{ url_for('loans.newloans')}}" title="Create New Loan">Create</a>
   </li>
   {% endif %}
 </ul>
@@ -27,12 +27,43 @@
         {% if  current_user.can_update or current_user.can_delete: %}
           <th class="col-md-1"></th>
         {% endif %}
-          <th class="column-header"><a id="loans_sortname" href="/loans/?name=desc" title="Sort by Customer Name">Name</a></th>
-          <th class="column-header"><a id="loans_sortamount" href="/loans/?amount=desc" title="Sort by Amount">Amount</a></th>
-          <th class="column-header"><a id="loans_sortinterest" href="/loans/?interest=desc" title="Sort by Interest">Interest</a></th>
-          <th class="column-header"><a id="loans_sorttpayable" href="/loans/?total_payable=desc" title="Sort by Total Payable">Total Payable</a></th>
-          <th class="column-header"><a id="loans_sorttpayment" href="/loans/?total_payment=desc" title="Sort by Total Payment">Total Payment</a></th>
-          <th class="column-header"><a id="loans_sortoutbal" href="/loans/?outstanding_balance=desc" title="Sort by Outstanding Balance">Outstanding Balance</a></th>
+          <th class="column-header"><a id="loans_sortname" href="/loans/?name={{ sort_order }}" title="Sort by Customer Name">Name
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}
+          </a></th>
+          <th class="column-header"><a id="loans_sortamount" href="/loans/?amount={{ sort_order }}" title="Sort by Amount">Amount
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}</a></th>
+          <th class="column-header"><a id="loans_sortinterest" href="/loans/?interest={{ sort_order }}" title="Sort by Interest">Interest
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}</a></th>
+          <th class="column-header"><a id="loans_sorttpayable" href="/loans/?total_payable={{ sort_order }}" title="Sort by Total Payable">Total Payable
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}</a></th>
+          <th class="column-header"><a id="loans_sorttpayment" href="/loans/?total_payment={{ sort_order }}" title="Sort by Total Payment">Total Payment
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}</a></th>
+          <th class="column-header"><a id="loans_sortoutbal" href="/loans/?outstanding_balance={{ sort_order }}" title="Sort by Outstanding Balance">Outstanding Balance
+              {% if sort_order == 'desc' %}
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              {% elif sort_order == 'asc' %}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              {% endif %}</a></th>
       </tr>
     </thead>
     <tbody>
@@ -41,7 +72,7 @@
               {% if current_user.can_update or current_user.can_delete : %}
               <td align="center">
                 {% if current_user.can_update: %}
-                <a href="/loans/edit/{{ loan.id }}" data-toggle="tooltip" title="Edit Loan: {{ loan.customer.name }}">
+                <a href="{{ url_for('loans.editloans', id=loan.id) }}" data-toggle="tooltip" title="Edit Loan: {{ loan.customer.name }}">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </a>
                 {% endif %}
@@ -59,7 +90,9 @@
               <td>{{ loan.payment }}</td>
               <td>{{ loan.outstanding_balance }}</td>
           </tr>
+
       {% endfor %}
+
     </tbody>
   </table>
   {% endblock %}
