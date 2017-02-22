@@ -84,13 +84,24 @@
               </td>
               {% endif %}
               <td>{{ loan.customer.name }}</td>
-              <td>{{ loan.amount }}</td>
-              <td>{{ loan.interest }}</td>
-              <td>{{ loan.total_payable }}</td>
-              <td>{{ loan.payment }}</td>
-              <td>{{ loan.outstanding_balance }}</td>
+              <td>{{ "{:,.2f}".format(loan.amount) }}</td>
+              <td>{{ "{:,.2f}%".format(loan.interest) }}</td>
+              <td>{{ "{:,.2f}".format(loan.total_payable) }}</td>
+              <td>{{ "{:,.2f}".format(loan.payment) }}</td>
+              <td>{{ "{:,.2f}".format(loan.outstanding_balance) }}</td>
           </tr>
-
+           {% if loop.last %}
+                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr>
+                    <td align="center">Total:</td>
+                    <td>&nbsp;</td>
+                    <td align="center">{{ "₱{:,.2f}".format(query_loans|sum(attribute='amount')) }}</td>
+                    <td>&nbsp;</td>
+                    <td>{{ "₱{:,.2f}".format(query_loans|sum(attribute='total_payable')) }}</td>
+                    <td>{{ "₱{:,.2f}".format(query_loans|sum(attribute='total_payment')) }}</td>
+                    <td>{{ "₱{:,.2f}".format(query_loans|sum(attribute='outstanding_balance')) }}</td>
+                </tr>
+            {% endif %}
       {% endfor %}
 
     </tbody>

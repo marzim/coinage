@@ -184,7 +184,7 @@ $(document).ready(function(){
             $(".modal-body #instructions").text("Please be aware that deleting this customer would also delete all loans/contributions connected to it.");
         }
         else if(url === "/loans/delete/"){
-            name = name + " with loan amount of " + $(this).data('amount');
+            name = name + " with outstanding balance of " + $(this).data('amount');
         }
         $(".modal-body #id").val(id);
         $(".modal-body #name").text(" '" + name + "' ");
