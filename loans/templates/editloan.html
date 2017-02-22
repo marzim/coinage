@@ -33,7 +33,7 @@
         <div class="col-6 col-sm-6 col-lg-4">
           <label>Customer Name</label>
           <p>
-            {{ render_field(form.customer_name, type="text", autofocus="True", class="form-control") }}
+            {{ render_field(form.customer_name, type="text", class="form-control") }}
           </p>
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
@@ -63,28 +63,9 @@
           <div class="col-6 col-sm-6 col-lg-4">
             <label>Interest per Month</label>
             <p>
-              {{ render_field(form.interest, type="text", class="form-control", style="width:75%;") }}
+              {{ render_field(form.interest, type="text", class="form-control") }}
             </p>
         </div>
-        <div class="col-6 col-sm-6 col-lg-4">
-            <label>Total Payable</label>
-            {{ render_field(form.total_payable, type="text", class="form-control", style="width:75%;") }}
-        </div>
-      </div>
-      <div class="row">
-          <div class="col-6 col-sm-6 col-lg-4">
-            <label>Payment</label>
-            <p>
-              {{ form.payment(type="text", class="form-control", style="width:75%;") }}
-            </p>
-        </div>
-        <div class="col-6 col-sm-6 col-lg-4">
-            <label>Total Payment</label>
-            {{ render_field(form.total_payment, type="text", class="form-control", style="width:75%;") }}
-
-        </div>
-      </div>
-      <div class="row">
         <div class="col-6 col-sm-6 col-lg-4">
           <label>Fully Paid On</label>
           <div class="input-group date" id="divdate_fullypaid" style="width:75%;" data-date-format="mm-dd-yyyy">
@@ -92,9 +73,27 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
         </div>
+      </div>
+      <div class="row">
+          <div class="col-6 col-sm-6 col-lg-4">
+            <label>Payment</label>
+            <p>
+              {{ form.payment(type="text", class="form-control") }}
+            </p>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payable</label>
+            {{ render_field(form.total_payable, type="text", class="form-control") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-lg-4">
+            <label>Total Payment</label>
+            {{ render_field(form.total_payment, type="text", class="form-control") }}
+        </div>
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Outstanding Balance</label>
-            {{ render_field(form.outstanding_balance, type="text", class="form-control", style="width:75%;") }}
+            {{ render_field(form.outstanding_balance, type="text", class="form-control") }}
         </div>
       </div>
       <div class="row">
