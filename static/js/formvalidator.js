@@ -27,6 +27,8 @@ $(document).ready(function(){
       }
   });
 
+  $('#interest').val(Math.round($('#interest_hv').val()));
+
   $('#interest').change(function(){
       var nummonths = get_nummonths();
       var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
@@ -69,6 +71,8 @@ $(document).ready(function(){
           alert("error: " + err.message);
       }
   });
+
+
 
   $('#date_due').change(function()
   {

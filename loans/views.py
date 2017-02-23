@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for, flash
 from jinja2 import TemplateNotFound
 from flask_login import login_required, current_user
-
+from collections import OrderedDict
 
 from .forms import AddForm, EditForm
 
@@ -14,6 +14,8 @@ def loans():
     from customers.models import Customer
     try:
         sort = request.query_string.split('=')
+        columns = [('name','Name'),('amount','Amount'),('interest','Interest'),('tpayable','Total Payable'),('tpayment','Total Payment'),('outbal','Outstanding Balance')]
+        columns = OrderedDict(columns)
         if len(sort) == 2:
             query_loans = sorting(sort[0], sort[1])
             sort_order = sort[1]
@@ -21,7 +23,7 @@ def loans():
             query_loans = get_list_order_by(Customer.name, 'asc')
             sort_order = None
 
-        return render_template('loans.html', query_loans=query_loans, sort_order=sort_order)
+        return render_template('loans.html', query_loans=query_loans, sort_order=sort_order, columns=columns)
     except TemplateNotFound:
         abort(404)
 
@@ -67,21 +69,22 @@ def newloans():
         form.customer_name.choices = [(g.id, g.name) for g in _customer]
         form.interest.choices = [(g.value, g.name) for g in interest]
         if request.method == 'GET':
+            form.interest.data = 5
             form.payment.data = 0
             form.total_payment.data = 0
         if request.method == 'POST':
             if form.validate_on_submit():
                 loan = Loan()
                 loan.customer_id = form.customer_name.data
-                loan.date_release = form.date_release.data
+                loan.date_release = request.form['date_rel']
                 loan.amount = form.amount.data
-                loan.date_due = form.date_due.data
+                loan.date_due = request.form['date_due']
                 loan.interest = form.interest.data
                 loan.total_payable = form.total_payable.data
                 loan.payment = form.payment.data
                 loan.total_payment = form.total_payment.data
                 loan.outstanding_balance = form.outstanding_balance.data
-                loan.fully_paid_on = form.fully_paid_on.data
+                loan.fully_paid_on = request.form['date_fullypaid']
                 db.session.add(loan)
                 db.session.commit()
                 flash(u'Record was successfully created.', 'success')
@@ -113,15 +116,15 @@ def editloans(id):
     if request.method == 'POST':
         if form.validate_on_submit():
             loan.customer_id = form.customer_name.data
-            loan.date_release = form.date_release.data
+            loan.date_release = request.form['date_rel']
             loan.amount = form.amount.data
-            loan.date_due = form.date_due.data
+            loan.date_due = request.form['date_due']
             loan.interest = form.interest.data
             loan.total_payable = form.total_payable.data
             loan.payment = form.payment.data
             loan.total_payment = form.total_payment.data
             loan.outstanding_balance = form.outstanding_balance.data
-            loan.fully_paid_on = form.fully_paid_on.data
+            loan.fully_paid_on = request.form['date_fullypaid']
             db.session.commit()
             flash(u'Record successfully saved.', 'success')
             return redirect(url_for('loans.loans'))

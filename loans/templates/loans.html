@@ -27,43 +27,15 @@
         {% if  current_user.can_update or current_user.can_delete: %}
           <th class="col-md-1"></th>
         {% endif %}
-          <th class="column-header"><a id="loans_sortname" href="/loans/?name={{ sort_order }}" title="Sort by Customer Name">Name
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}
-          </a></th>
-          <th class="column-header"><a id="loans_sortamount" href="/loans/?amount={{ sort_order }}" title="Sort by Amount">Amount
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}</a></th>
-          <th class="column-header"><a id="loans_sortinterest" href="/loans/?interest={{ sort_order }}" title="Sort by Interest">Interest
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}</a></th>
-          <th class="column-header"><a id="loans_sorttpayable" href="/loans/?total_payable={{ sort_order }}" title="Sort by Total Payable">Total Payable
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}</a></th>
-          <th class="column-header"><a id="loans_sorttpayment" href="/loans/?total_payment={{ sort_order }}" title="Sort by Total Payment">Total Payment
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}</a></th>
-          <th class="column-header"><a id="loans_sortoutbal" href="/loans/?outstanding_balance={{ sort_order }}" title="Sort by Outstanding Balance">Outstanding Balance
-              {% if sort_order == 'desc' %}
-                <span class="glyphicon glyphicon-chevron-up"></span>
-              {% elif sort_order == 'asc' %}
-                <span class="glyphicon glyphicon-chevron-down"></span>
-              {% endif %}</a></th>
+          {% for key, value in columns.items() %}
+              <th class="column-header"><a id="loans_sort{{ key }}" href="/loans/?{{ key }}={{ sort_order }}" title="Sort by {{ value }}">{{ value }}
+                  {% if sort_order == 'desc' %}
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                  {% elif sort_order == 'asc' %}
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                  {% endif %}
+              </a></th>
+          {% endfor %}
       </tr>
     </thead>
     <tbody>

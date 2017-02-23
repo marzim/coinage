@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    var date_rel = $('#date_rel').val();
-    if(!date_rel){
+    var date_due = $('#date_due').val();
+    if(!date_due){
         $(".input-group.date").datepicker("setDate", new Date());
         $(".input-group.date").datepicker({ autoclose: true, todayHighlight: true, todayBtn: true, "setDate": new Date() });
     }
