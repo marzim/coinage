@@ -24,7 +24,7 @@ for i in range(len(first_names)):
     c = Customer(first_names[i], last_names[i], i + 1, first_names[i].lower() + "@gmail.com",
                         first_names[i].lower() + " address", "1234567")
     db.session.add(c)
-    loan = Loan(customer=c, amount=1000, interest=3, payment=100, total_payable=1030, total_payment=100, outstanding_balance=930, fully_paid_on=date.today(), date_release=date.today(), date_due=date.today())
+    loan = Loan(customer=c, amount=1000, interest=3, payment=100, total_payable=1030, total_payment=100, outstanding_balance=930, fully_paid_on=date.today().strftime('%m-%d-%Y'), date_release=date.today().strftime('%m-%d-%Y'), date_due=date.today().strftime('%m-%d-%Y'))
     db.session.add(loan)
 
 

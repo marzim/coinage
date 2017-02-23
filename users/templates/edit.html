@@ -40,13 +40,13 @@
           <div class="panel-heading" align="center">Access rights</div>
           <div class="panel-body">
               <input type='hidden' id="can_create_hv" name="can_create_hv" value="{{ form.can_create.data }}">
-              <input type="checkbox" id="can_create" class="action-checkbox" title="Can create users/customers/tasks."><b> Create </b>
+              <label class="checkbox-inline"><input type="checkbox" id="can_create" class="action-checkbox" title="Can create users/customers/tasks.">Create</label>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <input type='hidden' id="can_update_hv" name="can_update_hv" value="{{ form.can_update.data }}">
-              <input type="checkbox" id="can_update" class="action-checkbox" title="Can update users/customers/tasks."><b> Update </b>
+              <label class="checkbox-inline"><input type="checkbox" id="can_update" class="action-checkbox" title="Can update users/customers/tasks.">Update</label>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <input type='hidden' id="can_delete_hv" name="can_delete_hv" value="{{ form.can_delete.data }}">
-              <input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete users/customers/tasks."><b> Delete </b>
+              <label class="checkbox-inline"><input type="checkbox" id="can_delete" class="action-checkbox" title="Can delete users/customers/tasks.">Delete</label>
           </div>
       </div>&nbsp;&nbsp;&nbsp;
     <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
