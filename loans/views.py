@@ -63,7 +63,7 @@ def newloans():
             return redirect(url_for('loans.loans'))
         form = AddForm(request.form)
         _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
-        interest = Interest.query.order_by(Interest.name)
+        interest = Interest.query.order_by(Interest.value)
         form.customer_name.choices = [(g.id, g.name) for g in _customer]
         form.interest.choices = [(g.value, g.name) for g in interest]
         if request.method == 'GET':
