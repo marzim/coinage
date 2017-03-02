@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, BooleanField
 from wtforms.validators import Length, Email, InputRequired, DataRequired
 
 class AddForm(Form):
@@ -24,6 +24,7 @@ class AddForm(Form):
         'mobile_phone',
         validators=[InputRequired(), Length(min=3, max=25)]
     )
+    is_member = BooleanField('Member', default=False)
 
 class EditCustomerForm(Form):
     first_name = StringField(
@@ -47,3 +48,4 @@ class EditCustomerForm(Form):
         'mobile_phone',
         validators=[DataRequired(), Length(min=3, max=25)]
     )
+    is_member = BooleanField('Member', default=False)

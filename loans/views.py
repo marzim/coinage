@@ -66,7 +66,7 @@ def newloans():
         form = AddForm(request.form)
         _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
         interest = Interest.query.order_by(Interest.value)
-        form.customer_name.choices = [(g.id, g.name) for g in _customer]
+        form.customer_name.choices = form.comaker_name.choices = [(g.id, g.name) for g in _customer]
         form.interest.choices = [(g.value, g.name) for g in interest]
         if request.method == 'GET':
             form.interest.data = 5
@@ -84,7 +84,6 @@ def newloans():
                 loan.payment = form.payment.data
                 loan.total_payment = form.total_payment.data
                 loan.outstanding_balance = form.outstanding_balance.data
-                loan.fully_paid_on = request.form['date_fullypaid']
                 db.session.add(loan)
                 db.session.commit()
                 flash(u'Record was successfully created.', 'success')
@@ -111,7 +110,7 @@ def editloans(id):
         return redirect(url_for('loans.loans'))
     _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
     interest = Interest.query.order_by(Interest.value)
-    form.customer_name.choices = [(g.id, g.name) for g in _customer]
+    form.customer_name.choices = form.comaker_name.choices = [(g.id, g.name) for g in _customer]
     form.interest.choices = [(g.value, g.name) for g in interest]
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -124,7 +123,6 @@ def editloans(id):
             loan.payment = form.payment.data
             loan.total_payment = form.total_payment.data
             loan.outstanding_balance = form.outstanding_balance.data
-            loan.fully_paid_on = request.form['date_fullypaid']
             db.session.commit()
             flash(u'Record successfully saved.', 'success')
             return redirect(url_for('loans.loans'))
@@ -138,7 +136,6 @@ def editloans(id):
         form.payment.data = loan.payment
         form.total_payment.data = loan.total_payment
         form.outstanding_balance.data = loan.outstanding_balance
-        form.fully_paid_on.data = loan.fully_paid_on
     return render_template("editloan.html", form=form)
 
 @loans_blueprint.route("/loans/delete/", methods=['POST'])   # pragma: no cover)

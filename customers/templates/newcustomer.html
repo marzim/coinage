@@ -47,7 +47,10 @@
       <p>
         {{ render_field(form.mobile_phone, type="text", class="form-control") }}
       </p>
-
+      <p>
+      <input type='hidden' id="is_member_hv" name="is_member_hv" value="{{ form.is_member.data }}">
+      <label class="checkbox-inline"><input type="checkbox" id="is_member" class="action-checkbox" title="Member of the band.">Is Member?</label>
+      </p>
       <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
     </form>
 {% endblock %}

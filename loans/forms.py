@@ -4,13 +4,11 @@ from wtforms.validators import Length, Email, InputRequired, DataRequired
 
 class AddForm(Form):
     customer_name = SelectField(u'Customers', coerce=int)
-
+    comaker_name = SelectField(u'Customers', coerce=int)
     date_release = StringField(
         'date_release')
     date_due = StringField(
         'date_release')
-    fully_paid_on = StringField(
-        'fully_paid_on')
     amount = FloatField('amount')
     interest = SelectField(u'Interest', coerce=int)
     total_payable = FloatField('total_payable')
@@ -20,13 +18,11 @@ class AddForm(Form):
 
 class EditForm(Form):
     customer_name = SelectField(u'Customers', coerce=int)
-
+    comaker_name = SelectField(u'Customers', coerce=int)
     date_release = StringField(
         'date_release')
     date_due = StringField(
         'date_release')
-    fully_paid_on = StringField(
-        'fully_paid_on')
     amount = FloatField('amount')
     interest = SelectField(u'Interest', coerce=int)
     total_payable = FloatField('total_payable')

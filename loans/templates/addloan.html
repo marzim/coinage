@@ -32,11 +32,10 @@
           </p>
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
-          <label>Date Release</label>
-          <div class="input-group date" id="dp3" style="width:75%;" data-date-format="mm-dd-yyyy">
-            <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel" value="" >
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-          </div>
+          <label>Co-maker Name</label>
+          <p>
+            {{ render_field(form.comaker_name, type="text", autofocus="True", class="form-control") }}
+          </p>
         </div>
       </div>
         <div class="row">
@@ -46,13 +45,13 @@
               {{ render_field(form.amount, type="text", class="form-control") }}
             </p>
           </div>
-            <div class="col-6 col-sm-6 col-lg-4">
-              <label>Date Due</label>
-              <div class="input-group date" id="divdate_due" style="width:75%;" data-date-format="mm-dd-yyyy">
-                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" >
-                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-              </div>
-            </div>
+          <div class="col-6 col-sm-6 col-lg-4">
+          <label>Loan Date</label>
+          <div class="input-group date" id="dp3" style="width:75%;" data-date-format="mm-dd-yyyy">
+            <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel" value="" >
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
         </div>
       <div class="row">
           <div class="col-6 col-sm-6 col-lg-4">
@@ -61,13 +60,13 @@
               {{ render_field(form.interest, type="text", class="form-control") }}
             </p>
         </div>
-        <div class="col-6 col-sm-6 col-lg-4">
-          <label>Fully Paid On</label>
-          <div class="input-group date" id="divdate_fullypaid" style="width:75%;" data-date-format="mm-dd-yyyy">
-            <input class="form-control input-sm" type="text" readonly="" name="date_fullypaid" id="date_fullypaid" value="" >
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-          </div>
-        </div>
+         <div class="col-6 col-sm-6 col-lg-4">
+              <label>Date Due</label>
+              <div class="input-group date" id="divdate_due" style="width:75%;" data-date-format="mm-dd-yyyy">
+                <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" >
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
       </div>
       <div class="row">
           <div class="col-6 col-sm-6 col-lg-4">
@@ -77,15 +76,14 @@
             </p>
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
-            <label>Total Payment</label>
-            {{ render_field(form.total_payment, type="text", class="form-control") }}
-
+            <label>Total Payable</label>
+            {{ render_field(form.total_payable, type="text", class="form-control") }}
         </div>
       </div>
       <div class="row">
         <div class="col-6 col-sm-6 col-lg-4">
-            <label>Total Payable</label>
-            {{ render_field(form.total_payable, type="text", class="form-control") }}
+            <label>Total Payment</label>
+            {{ render_field(form.total_payment, type="text", class="form-control") }}
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Outstanding Balance</label>

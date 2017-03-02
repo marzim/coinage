@@ -37,7 +37,8 @@ def newcustomer():
                     number_shares=form.number_shares.data,
                     email=form.email.data.strip(),
                     address=form.address.data.strip(),
-                    mobile_phone=form.mobile_phone.data.strip()
+                    mobile_phone=form.mobile_phone.data.strip(),
+                    is_member=int(request.form['is_member_hv'])
                 )
                 db.session.add(customer)
                 db.session.commit()
@@ -77,6 +78,7 @@ def editcustomer(id):
                 customer.email = request.form['email']
                 customer.address = request.form['address']
                 customer.mobile_phone = request.form['mobile_phone']
+                customer.is_member = int(request.form['is_member_hv'])
                 db.session.commit()
                 flash(u'Record successfully saved.', 'success')
                 return redirect(url_for('customers.customers'))
@@ -89,6 +91,7 @@ def editcustomer(id):
             form.email.data = customer.email
             form.address.data = customer.address
             form.mobile_phone.data = customer.mobile_phone
+            form.is_member.data = customer.is_member
         return render_template('editcustomer.html', form=form)
     except TemplateNotFound:
         abort(404)

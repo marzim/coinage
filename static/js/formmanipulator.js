@@ -2,6 +2,7 @@ $(document).ready(function(){
     setCheckBoxValue('#can_create','#can_create_hv');
     setCheckBoxValue('#can_update','#can_update_hv');
     setCheckBoxValue('#can_delete','#can_delete_hv');
+    setCheckBoxValue('#is_member','#is_member_hv');
 
     $('#can_create').click(function()
     {
@@ -16,6 +17,11 @@ $(document).ready(function(){
     $('#can_delete').click(function()
     {
         setHiddenCheckBox('#can_delete','#can_delete_hv');
+    });
+
+    $('#is_member').click(function()
+    {
+        setHiddenCheckBox('#is_member','#is_member_hv');
     });
 
     function setHiddenCheckBox(checkbox, hidden){

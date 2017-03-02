@@ -11,9 +11,10 @@ class Customer(db.Model):
     email = db.Column(db.String(150), unique=False)
     address = db.Column(db.String(80))
     mobile_phone = db.Column(db.String(80))
+    is_member = db.Column(db.Integer)
     loans = db.relationship('Loan', backref='customer', lazy='dynamic')
 
-    def __init__(self, first_name=None, last_name=None, number_shares=0, email=None, address=None, mobile_phone=None):
+    def __init__(self, first_name=None, last_name=None, number_shares=0, email=None, address=None, mobile_phone=None, is_member=0):
         self.first_name = first_name
         self.last_name = last_name
         self.name = first_name + ' ' + last_name
@@ -21,6 +22,7 @@ class Customer(db.Model):
         self.email = email
         self.address = address
         self.mobile_phone = mobile_phone
+        self.is_member = is_member
 
     def __repr__(self):
         return self.name
