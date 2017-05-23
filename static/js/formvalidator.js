@@ -72,7 +72,9 @@ $(document).ready(function(){
       }
   });
 
-
+  $('#customer_name').change(function(){
+    alert("bitch please!");
+  });
 
   $('#date_due').change(function()
   {

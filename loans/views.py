@@ -63,7 +63,7 @@ def newloans():
     try:
         if not current_user.can_create:
             return redirect(url_for('loans.loans'))
-        form = AddForm(request.form)
+        form = AddForm()
         _customer = Customer.query.with_entities(Customer.id, Customer.name).order_by(Customer.name)
         interest = Interest.query.order_by(Interest.value)
         form.customer_name.choices = form.comaker_name.choices = [(g.id, g.name) for g in _customer]
