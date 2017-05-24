@@ -20,4 +20,4 @@ wsgiref==0.1.2
 mysql-connector==2.1.4
 mysql-python
 bcrypt
-
+Flask-SSLify
