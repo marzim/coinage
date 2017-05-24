@@ -3,7 +3,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_sslify import SSLify
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -13,7 +12,6 @@ app.config.from_object('config.DevelopmentConfig')
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 299
 app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
 db = SQLAlchemy(app)
-sslify = SSLify(app)
 
 from home.views import home_blueprint
 from contributions.views import contributions_blueprint
