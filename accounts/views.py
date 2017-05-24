@@ -12,6 +12,8 @@ def login():
     from coinage import bcrypt
     from users.models import User
     error = None
+    if current_user.is_authenticated:
+        return redirect(url_for('home.home'))
     form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -42,6 +44,8 @@ def logout():
 def register():
     from coinage import db
     from users.models import User
+    if current_user.is_authenticated:
+        return redirect(url_for('home.home'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User.query.filter_by(name=form.username.data.strip()).first()
