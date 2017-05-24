@@ -22,7 +22,9 @@ class EditForm(Form):
     date_release = StringField(
         'date_release')
     date_due = StringField(
-        'date_release')
+        'date_due')
+    fully_paid_on = StringField(
+        'fully_paid_on')
     amount = FloatField('amount')
     interest = SelectField(u'Interest', coerce=int)
     total_payable = FloatField('total_payable')

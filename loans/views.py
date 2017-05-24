@@ -88,6 +88,8 @@ def newloans():
                 db.session.commit()
                 flash(u'Record was successfully created.', 'success')
                 return redirect(url_for('loans.loans'))
+            else:
+                flash(form.errors, 'danger')
 
         return render_template("addloan.html", form=form)
     except TemplateNotFound:
@@ -100,6 +102,7 @@ def editloans(id):
     from coinage import db
     from models import Loan, Interest
     from customers.models import Customer
+
 
     if not current_user.can_update:
         return redirect(url_for('loans.loans'))
@@ -114,19 +117,22 @@ def editloans(id):
     form.interest.choices = [(g.value, g.name) for g in interest]
     if request.method == 'POST':
         if form.validate_on_submit():
-            loan.customer_id = form.customer_name.data
+            loan.customer_id = request.form['customer_name']
             loan.date_release = request.form['date_rel']
-            loan.amount = form.amount.data
+            loan.amount = request.form['amount']
             loan.date_due = request.form['date_due']
-            loan.interest = form.interest.data
-            loan.total_payable = form.total_payable.data
-            loan.payment = form.payment.data
-            loan.total_payment = form.total_payment.data
-            loan.outstanding_balance = form.outstanding_balance.data
+            loan.interest = request.form['interest']
+            loan.total_payable = request.form['total_payable']
+            loan.payment = request.form['payment']
+            loan.fully_paid_on = request.form['date_fullypaid']
+            loan.total_payment = request.form['total_payment']
+            loan.outstanding_balance = request.form['outstanding_balance']
             db.session.commit()
             flash(u'Record successfully saved.', 'success')
             return redirect(url_for('loans.loans'))
-    else:
+        else:
+            flash(form.errors, 'danger')
+    elif request.method == 'GET':
         form.customer_name.data = loan.customer_id
         form.date_release.data = loan.date_release
         form.amount.data = loan.amount
@@ -134,6 +140,7 @@ def editloans(id):
         form.interest.data = loan.interest
         form.total_payable.data = loan.total_payable
         form.payment.data = loan.payment
+        form.fully_paid_on.data = loan.fully_paid_on
         form.total_payment.data = loan.total_payment
         form.outstanding_balance.data = loan.outstanding_balance
     return render_template("editloan.html", form=form)
