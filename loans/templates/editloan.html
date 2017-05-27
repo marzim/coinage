@@ -84,17 +84,18 @@
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Total Payable</label>
-            {{ render_field(form.total_payable, type="text", class="form-control") }}
+            {{ render_field(form.total_payable, type="text", class="form-control", readonly="true") }}
         </div>
       </div>
       <div class="row">
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Total Payment</label>
-            {{ render_field(form.total_payment, type="text", class="form-control") }}
+            {{ render_field(form.total_payment, type="text", class="form-control", readonly="true") }}
+            <input type="hidden" id="total_payment_hv" value="{{ form.total_payment.data }}">
         </div>
         <div class="col-6 col-sm-6 col-lg-4">
             <label>Outstanding Balance</label>
-            {{ render_field(form.outstanding_balance, type="text", class="form-control") }}
+            {{ render_field(form.outstanding_balance, type="text", class="form-control", readonly="true") }}
         </div>
       </div>
       <div class="row">

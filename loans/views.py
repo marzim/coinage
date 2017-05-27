@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, abort, request, redirect, url_for,
 from jinja2 import TemplateNotFound
 from flask_login import login_required, current_user
 from collections import OrderedDict
+from decimal import Decimal
+from re import sub
 
 from .forms import AddForm, EditForm
 
@@ -122,11 +124,12 @@ def editloans(id):
             loan.amount = request.form['amount']
             loan.date_due = request.form['date_due']
             loan.interest = request.form['interest']
+            total_payable = Decimal(sub(r'[^\d\-.]', '', request.form['total_payable']))
             loan.total_payable = request.form['total_payable']
-            loan.payment = request.form['payment']
+            loan.payment = int(float(request.form['payment']))
             loan.fully_paid_on = request.form['date_fullypaid']
-            loan.total_payment = request.form['total_payment']
-            loan.outstanding_balance = request.form['outstanding_balance']
+            loan.total_payment = int(request.form['total_payment'])
+            loan.outstanding_balance = int(float(request.form['outstanding_balance']))
             db.session.commit()
             flash(u'Record successfully saved.', 'success')
             return redirect(url_for('loans.loans'))

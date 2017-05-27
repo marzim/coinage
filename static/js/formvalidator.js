@@ -36,36 +36,39 @@ $(document).ready(function(){
       var amount = $('#amount').val();
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
       if(t_pay){
-        $('#total_payable').val(t_pay);
+      var final_payment = t_pay.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+        $('#total_payable').val(final_payment);
         $('#total_payment').change();
       }
   });
 
   $('#payment').change(function(){
-     //var tpayment = parseFloat($('#totalpayment_hv').val());
+     var total_payment = parseFloat($('#total_payment_hv').val());
      var payment = parseFloat($('#payment').val());
-     //if(tpayment){
-     //    payment += parseFloat(tpayment);
-     //}
+
      if(payment){
-        $('#total_payment').val(payment);
-        $('#total_payment').change();
+         var payments = payment + total_payment;
+         var final_payment = payments.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+         $('#total_payment').val(final_payment);
      }
      else
      {
-        $('#total_payment').val(0);
-        $('#total_payment').change();
+        $('#total_payment').val(total_payment.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,"));
      }
+     $('#total_payment').change();
   });
 
   $('#total_payment').change(function(){
       try{
-          var tpayable = parseFloat($('#total_payable').val());
-          var tpayment = parseFloat($('#total_payment').val());
+          var tpayable = parseFloat($('#total_payable').val().replace(/[^0-9-.]/g, ''));
+          var tpayment = parseFloat($('#total_payment').val().replace(/[^0-9-.]/g, ''));
           if(!tpayment){
-            $('#outstanding_balance').val(tpayable);
+            var final_payable = tpayable.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+            $('#outstanding_balance').val(final_payable);
           }else if(tpayable && tpayment){
-              $('#outstanding_balance').val(tpayable - tpayment);
+            var num = tpayable - tpayment;
+            var final_payable = num.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+              $('#outstanding_balance').val(final_payable);
           }
       }catch(err){
           alert("error: " + err.message);
