@@ -105,7 +105,6 @@ def editloans(id):
     from models import Loan, Interest
     from customers.models import Customer
 
-
     if not current_user.can_update:
         return redirect(url_for('loans.loans'))
     form = EditForm(request.form)
@@ -120,20 +119,22 @@ def editloans(id):
     if request.method == 'POST':
 
         if form.validate_on_submit():
-            loan.customer_id = request.form['customer_name']
-            loan.date_release = request.form['date_rel']
-            loan.amount = request.form['amount']
-            loan.date_due = request.form['date_due']
-            loan.interest = request.form['interest']
-            # total_payable = Decimal(sub(r'[^\d\-.]', '', request.form['total_payable']))
-            loan.total_payable = request.form['total_payable']
-            loan.payment = int(float(request.form['payment']))
-            loan.fully_paid_on = request.form['date_fullypaid']
-            loan.total_payment = Decimal(request.form['total_payment'].replace(',', ''))
-            loan.outstanding_balance = Decimal(float(request.form['outstanding_balance'].replace(',', '')))
-            db.session.commit()
-            flash(u'Record successfully saved.', 'success')
-            return redirect(url_for('loans.loans'))
+            try:
+                loan.customer_id = request.form['customer_name']
+                loan.date_release = request.form['date_rel']
+                loan.amount = Decimal(request.form['amount'].replace(',', ''))
+                loan.date_due = request.form['date_due']
+                loan.interest = request.form['interest']
+                loan.total_payable = Decimal(request.form['total_payable'].replace(',', ''))
+                loan.payment = Decimal(request.form['payment'].replace(',', ''))
+                loan.fully_paid_on = request.form['date_fullypaid']
+                loan.total_payment = Decimal(request.form['total_payment'].replace(',', ''))
+                loan.outstanding_balance = Decimal(float(request.form['outstanding_balance'].replace(',', '')))
+                db.session.commit()
+                flash(u'Record successfully saved.', 'success')
+                return redirect(url_for('loans.loans'))
+            except Exception as e:
+                flash(e.message, 'danger')
         else:
             flash(form.errors, 'danger')
     elif request.method == 'GET':
