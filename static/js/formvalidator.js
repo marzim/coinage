@@ -13,18 +13,31 @@ $(document).ready(function(){
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
-};
+  };
 
-  $('#amount').change(function(){
-      var nummonths = get_nummonths();
-      var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
+  var formatCurrency = function formatCurrency(number){
+    //return sParam.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "1,");
+    return number.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "1,");
+  };
 
-      var amount = $('#amount').val();
-      var t_pay = parseFloat(amount) + parseFloat(amount * percent);
-      if(t_pay){
-        $('#total_payable').val(t_pay);
-        $('#total_payment').change();
-      }
+  var unFormatCurrency = function unFormatCurrency(sParam){
+    return sParam.replace(/[^0-9-.]/g, '');
+  };
+
+  var formatCurrency2 = function formatCurrency2(n) {
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+  };
+
+  $('#amount').keyup(function(){
+    var nummonths = get_nummonths();
+    var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
+
+    var amount = unFormatCurrency($('#amount').val());
+    var t_pay = parseFloat(amount) + parseFloat(amount * percent);
+    if(t_pay){
+      $('#total_payable').val(formatCurrency(t_pay));
+      $('#total_payment').change();
+    }
   });
 
   $('#interest').val(Math.round($('#interest_hv').val()));
@@ -33,41 +46,40 @@ $(document).ready(function(){
       var nummonths = get_nummonths();
       var percent = (parseFloat($("#interest").val()) * parseFloat(nummonths)) / 100;
 
-      var amount = $('#amount').val();
+      var amount = unFormatCurrency($('#amount').val());
       var t_pay = parseFloat(amount) + parseFloat(amount * percent);
       if(t_pay){
-      var final_payment = t_pay.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+      var final_payment = formatCurrency(t_pay);
         $('#total_payable').val(final_payment);
         $('#total_payment').change();
       }
   });
 
-  $('#payment').change(function(){
+  $('#payment').keyup(function(){
      var total_payment = parseFloat($('#total_payment_hv').val());
      var payment = parseFloat($('#payment').val());
-
      if(payment){
          var payments = payment + total_payment;
-         var final_payment = payments.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+         var final_payment = payments.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
          $('#total_payment').val(final_payment);
      }
      else
      {
-        $('#total_payment').val(total_payment.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,"));
+        $('#total_payment').val(formatCurrency(total_payment));
      }
      $('#total_payment').change();
   });
 
   $('#total_payment').change(function(){
       try{
-          var tpayable = parseFloat($('#total_payable').val().replace(/[^0-9-.]/g, ''));
-          var tpayment = parseFloat($('#total_payment').val().replace(/[^0-9-.]/g, ''));
+          var tpayable = parseFloat(unFormatCurrency($('#total_payable').val()));
+          var tpayment = parseFloat(unFormatCurrency($('#total_payment').val()));
           if(!tpayment){
-            var final_payable = tpayable.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+            var final_payable = formatCurrency(tpayable);
             $('#outstanding_balance').val(final_payable);
           }else if(tpayable && tpayment){
             var num = tpayable - tpayment;
-            var final_payable = num.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,");
+            var final_payable = formatCurrency(num);
               $('#outstanding_balance').val(final_payable);
           }
       }catch(err){

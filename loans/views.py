@@ -118,18 +118,19 @@ def editloans(id):
     form.customer_name.choices = form.comaker_name.choices = [(g.id, g.name) for g in _customer]
     form.interest.choices = [(g.value, g.name) for g in interest]
     if request.method == 'POST':
+
         if form.validate_on_submit():
             loan.customer_id = request.form['customer_name']
             loan.date_release = request.form['date_rel']
             loan.amount = request.form['amount']
             loan.date_due = request.form['date_due']
             loan.interest = request.form['interest']
-            total_payable = Decimal(sub(r'[^\d\-.]', '', request.form['total_payable']))
+            # total_payable = Decimal(sub(r'[^\d\-.]', '', request.form['total_payable']))
             loan.total_payable = request.form['total_payable']
             loan.payment = int(float(request.form['payment']))
             loan.fully_paid_on = request.form['date_fullypaid']
-            loan.total_payment = int(request.form['total_payment'])
-            loan.outstanding_balance = int(float(request.form['outstanding_balance']))
+            loan.total_payment = Decimal(request.form['total_payment'].replace(',', ''))
+            loan.outstanding_balance = Decimal(float(request.form['outstanding_balance'].replace(',', '')))
             db.session.commit()
             flash(u'Record successfully saved.', 'success')
             return redirect(url_for('loans.loans'))
@@ -138,14 +139,14 @@ def editloans(id):
     elif request.method == 'GET':
         form.customer_name.data = loan.customer_id
         form.date_release.data = loan.date_release
-        form.amount.data = loan.amount
+        form.amount.data = "{:,.2f}".format(loan.amount)
         form.date_due.data = loan.date_due
         form.interest.data = loan.interest
-        form.total_payable.data = loan.total_payable
-        form.payment.data = loan.payment
+        form.total_payable.data = "{:,.2f}".format(loan.total_payable)
+        form.payment.data = "{:,.2f}".format(loan.payment)
         form.fully_paid_on.data = loan.fully_paid_on
         form.total_payment.data = loan.total_payment
-        form.outstanding_balance.data = loan.outstanding_balance
+        form.outstanding_balance.data = "{:,.2f}".format(loan.outstanding_balance)
     return render_template("editloan.html", form=form)
 
 @loans_blueprint.route("/loans/delete/", methods=['POST'])   # pragma: no cover)
