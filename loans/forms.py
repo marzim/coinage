@@ -9,12 +9,12 @@ class AddForm(Form):
         'date_release')
     date_due = StringField(
         'date_release')
-    amount = FloatField('amount')
+    amount = StringField('amount')
     interest = SelectField(u'Interest', coerce=int)
-    total_payable = FloatField('total_payable')
-    payment = FloatField('payment')
-    total_payment = FloatField('total_payment')
-    outstanding_balance = FloatField('outstanding_balance')
+    total_payable = StringField('total_payable')
+    payment = StringField('payment')
+    total_payment = StringField('total_payment')
+    outstanding_balance = StringField('outstanding_balance')
 
 class EditForm(Form):
     customer_name = SelectField(u'Customers', coerce=int)
