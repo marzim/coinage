@@ -76,20 +76,23 @@ def newloans():
             form.total_payment.data = 0
         if request.method == 'POST':
             if form.validate_on_submit():
-                loan = Loan()
-                loan.customer_id = form.customer_name.data
-                loan.date_release = request.form['date_rel']
-                loan.amount = Decimal(form.amount.data.replace(',', ''))
-                loan.date_due = request.form['date_due']
-                loan.interest = form.interest.data
-                loan.total_payable = Decimal(form.total_payable.data.replace(',', ''))
-                loan.payment = Decimal(form.payment.data.replace(',', ''))
-                loan.total_payment = Decimal(form.total_payment.data.replace(',', ''))
-                loan.outstanding_balance = Decimal(form.outstanding_balance.data.replace(',', ''))
-                db.session.add(loan)
-                db.session.commit()
-                flash(u'Record was successfully created.', 'success')
-                return redirect(url_for('loans.loans'))
+                try:
+                    loan = Loan()
+                    loan.customer_id = form.customer_name.data
+                    loan.date_release = request.form['date_rel']
+                    loan.amount = Decimal(form.amount.data.replace(',', ''))
+                    loan.date_due = request.form['date_due']
+                    loan.interest = form.interest.data
+                    loan.total_payable = Decimal(form.total_payable.data.replace(',', ''))
+                    loan.payment = Decimal(form.payment.data.replace(',', ''))
+                    loan.total_payment = Decimal(form.total_payment.data.replace(',', ''))
+                    loan.outstanding_balance = Decimal(form.outstanding_balance.data.replace(',', ''))
+                    db.session.add(loan)
+                    db.session.commit()
+                    flash(u'Record was successfully created.', 'success')
+                    return redirect(url_for('loans.loans'))
+                except Exception as e:
+                    flash(e.message, 'danger')
             else:
                 flash(form.errors, 'danger')
 
