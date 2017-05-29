@@ -159,6 +159,14 @@ $(document).ready(function(){
         $('#collapseMemberPerks').collapse('show');
     }
 
+   /* $('#need_comaker').click(function(){
+        if($('#need_comaker').is(':checked')){
+            $('#comaker').collapse('show')
+        }else{
+            $('#comaker').collapse('hide')
+        }
+    });*/
+
     //$('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
 
     $('ul.nav > li > a[href$="/' + document.location.pathname.split("/")[1] + '"]').parent().addClass('active');

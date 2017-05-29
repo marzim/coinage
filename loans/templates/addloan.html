@@ -25,16 +25,22 @@
     <form class="well" role="form" method="post" action="">
       {{ form.csrf_token }}
       <div class="row">
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="col-sm-6">
           <label>Customer Name</label>
           <p>
             {{ render_field(form.customer_name, type="text", autofocus="True", class="form-control" ) }}
           </p>
         </div>
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="col-sm-4">
+        <p>
+          <br>
+          <label class="checkbox-inline"><input type="checkbox" id="need_comaker" name="need_comaker" data-toggle="collapse" data-target="#comaker" class="action-checkbox" title="Select co-maker">Co-Maker</label>
+        </p>
+        </div>
+        <div class="col-sm-6 collapse" id="comaker">
           <label>Co-maker Name</label>
           <p>
-            {{ render_field(form.comaker_name, type="text", autofocus="True", class="form-control") }}
+            {{ render_field(form.comaker_name, type="text", class="form-control") }}
           </p>
         </div>
       </div>
