@@ -244,6 +244,11 @@ $(document).ready(function(){
         window.location.assign('/' + url + '/?' + parameter + '=' + order_by);
     }
 
+    $('#cancel_button').click(function(){
+        var url = $(this).data('url');
+        window.location.assign(url);
+    });
+
     $('#loans_sortname').click(function(e){
         sort_column(e, 'name','loans');
     });

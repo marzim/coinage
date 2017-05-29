@@ -45,13 +45,13 @@
         </div>
       </div>
         <div class="row">
-          <div class="col-6 col-sm-6 col-lg-4">
+          <div class="col-sm-6">
             <label>Amount</label>
             <p>
               {{ render_field(form.amount, type="text", class="form-control") }}
             </p>
           </div>
-          <div class="col-6 col-sm-6 col-lg-4">
+          <div class="col-sm-6">
           <label>Loan Date</label>
           <div class="input-group date" id="dp3" style="width:75%;" data-date-format="mm-dd-yyyy">
             <input class="form-control input-sm" type="text" readonly="" name="date_rel" id="date_rel" value="" >
@@ -60,13 +60,13 @@
         </div>
         </div>
       <div class="row">
-          <div class="col-6 col-sm-6 col-lg-4">
+          <div class="col-sm-6">
             <label>Interest per Month</label>
             <p>
               {{ render_field(form.interest, type="text", class="form-control") }}
             </p>
         </div>
-         <div class="col-6 col-sm-6 col-lg-4">
+         <div class="col-sm-6">
               <label>Date Due</label>
               <div class="input-group date" id="divdate_due" style="width:75%;" data-date-format="mm-dd-yyyy">
                 <input class="form-control input-sm" type="text" readonly="" name="date_due" id="date_due" >
@@ -75,31 +75,35 @@
             </div>
       </div>
       <div class="row">
-          <div class="col-6 col-sm-6 col-lg-4">
+          <div class="col-sm-6">
             <label>Payment</label>
             <p>
               {{ form.payment(type="text", class="form-control") }}
             </p>
         </div>
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="col-sm-6">
             <label>Total Payable</label>
             {{ render_field(form.total_payable, type="text", class="form-control", readonly="true") }}
         </div>
       </div>
       <div class="row">
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="col-sm-6">
             <label>Total Payment</label>
             {{ render_field(form.total_payment, type="text", class="form-control", readonly="true") }}
             <input type="hidden" id="total_payment_hv" value="{{ form.total_payment.data }}">
         </div>
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="col-sm-6">
             <label>Outstanding Balance</label>
             {{ render_field(form.outstanding_balance, type="text", class="form-control", readonly="true") }}
         </div>
       </div>
       <div class="row">
-        <div class="col-6 col-sm-6 col-lg-4">
         <br />
+        <div class="col-sm-6">
+          <button class="btn btn-lg btn-block btn-default" id="cancel_button" data-url="/loans/" type="button">Cancel</button>
+        </div>
+        <div class="col-sm-6">
+
         <button class="btn btn-lg btn-success btn-block" type="submit">Save</button>
         </div>
       </div>
