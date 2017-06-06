@@ -5,6 +5,9 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
+  font: 400 15px Lato, sans-serif;
+  line-height: 1.8;
+  color: #818181;
 }
 /*
  * Global add-ons
