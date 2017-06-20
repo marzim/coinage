@@ -1,6 +1,6 @@
 from flask_wtf import Form
-from wtforms import StringField, IntegerField, SelectField, FloatField
-from wtforms.validators import Length, Email, InputRequired, DataRequired
+from wtforms import StringField, SelectField
+from wtforms.validators import DataRequired
 
 class AddForm(Form):
     customer_name = SelectField(u'Customers', coerce=int)
