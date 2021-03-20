@@ -4,6 +4,7 @@ import os
 
 class BaseConfig(object):
     #DEBUG = False
+    os.environ['FLASK_DATABASE_URL'] = "mysql+mysqldb://tigumi:beer_180@tigumi.mysql.pythonanywhere-services.com/tigumi$coinage"
     SECRET_KEY = 'p\xfa\xa6\x0fM\x7f\xb4o\xae\xb1\x1dv\x82\xacky\xd6\xe4\x93\x0b\x00\x86\xc6&'
     SQLALCHEMY_DATABASE_URI = os.environ.get('FLASK_DATABASE_URL')
 
