@@ -19,7 +19,7 @@ def login():
         if form.validate_on_submit():
             user = User.query.filter_by(name=request.form['username'].strip()).first()
             if user is not None and bcrypt.check_password_hash(
-                user.password, request.form['password']
+                user.password.encode('UTF-8'), request.form['password'].encode('UTF-8')
             ):
                 login_user(user)
                 next = request.args.get('next')

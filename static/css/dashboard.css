@@ -4,6 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
+<<<<<<< HEAD
     padding-top: 50px;
     font: 400 15px Lato, sans-serif;
     line-height: 1.8;
@@ -16,6 +17,12 @@ body {
 
 .navbar {
     font-family: Montserrat, sans-serif;
+=======
+  padding-top: 50px;
+  font: 400 15px Lato, sans-serif;
+  line-height: 1.8;
+  color: #818181;
+>>>>>>> 5e8866cab590989d511f5684236355e55c26a5bd
 }
 /*
  * Global add-ons
