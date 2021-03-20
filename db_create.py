@@ -1,7 +1,7 @@
 import os
 import re
 
-os.environ['FLASK_DATABASE_URL'] = "mysql+mysqldb://coinage:beer_180@tigumi.mysql.pythonanywhere-services.com/tigumi$coinage"
+os.environ['FLASK_DATABASE_URL'] = "mysql+mysqldb://tigumi:beer_180@tigumi.mysql.pythonanywhere-services.com/tigumi$coinage"
 #os.environ['FLASK_DATABASE_URL'] = "mysql+mysqldb://root:jasper@localhost:3306/coinage"
 #os.environ['FLASK_DATABASE_URL'] = "mysql+mysqldb://root:beer_180JKL:@127.0.0.1:3306/coinage"
 
